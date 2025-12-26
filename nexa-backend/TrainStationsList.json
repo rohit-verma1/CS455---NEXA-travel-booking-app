@@ -1,0 +1,122 @@
+[
+   {
+      "name":"New Delhi Railway Station",
+      "code":"NDLS",
+      "city":"Delhi",
+      "state":"Delhi"
+   },
+   {
+      "name":"Lucknow Junction",
+      "code":"LJN",
+      "city":"Lucknow",
+      "state":"Uttar Pradesh"
+   },
+   {
+      "name":"Kanpur Central",
+      "code":"CNB",
+      "city":"Kanpur",
+      "state":"Uttar Pradesh"
+   },
+   {
+      "name":"Chhatrapati Shivaji Terminus",
+      "code":"CSMT",
+      "city":"Mumbai",
+      "state":"Maharashtra"
+   },
+   {
+      "name":"Pune Junction",
+      "code":"PUNE",
+      "city":"Pune",
+      "state":"Maharashtra"
+   },
+   {
+      "name":"Ahmedabad Junction",
+      "code":"ADI",
+      "city":"Ahmedabad",
+      "state":"Gujarat"
+   },
+   {
+      "name":"Indore Junction",
+      "code":"INDB",
+      "city":"Indore",
+      "state":"Madhya Pradesh"
+   },
+   {
+      "name":"Jaipur Junction",
+      "code":"JP",
+      "city":"Jaipur",
+      "state":"Rajasthan"
+   },
+   {
+      "name":"Madgaon Railway Station",
+      "code":"MAO",
+      "city":"Goa",
+      "state":"Goa"
+   },
+   {
+      "name":"Chennai Central",
+      "code":"MAS",
+      "city":"Chennai",
+      "state":"Tamil Nadu"
+   },
+   {
+      "name":"Bengaluru City Junction",
+      "code":"SBC",
+      "city":"Bengaluru",
+      "state":"Karnataka"
+   },
+   {
+      "name":"Hyderabad Deccan",
+      "code":"HYB",
+      "city":"Hyderabad",
+      "state":"Telangana"
+   },
+   {
+      "name":"Howrah Junction",
+      "code":"HWH",
+      "city":"Kolkata",
+      "state":"West Bengal"
+   },
+   {
+      "name":"Guwahati Railway Station",
+      "code":"GHY",
+      "city":"Guwahati",
+      "state":"Assam"
+   },
+   {
+      "name":"Bhubaneswar Railway Station",
+      "code":"BBS",
+      "city":"Bhubaneswar",
+      "state":"Odisha"
+   },
+   {
+      "name":"Ernakulam Junction",
+      "code":"ERS",
+      "city":"Kochi",
+      "state":"Kerala"
+   },
+   {
+      "name":"Patna Junction",
+      "code":"PNBE",
+      "city":"Patna",
+      "state":"Bihar"
+   },
+   {
+      "name":"Agra Cantt",
+      "code":"AGC",
+      "city":"Agra",
+      "state":"Uttar Pradesh"
+   },
+   {
+      "name":"Visakhapatnam Junction",
+      "code":"VSKP",
+      "city":"Visakhapatnam",
+      "state":"Andhra Pradesh"
+   },
+   {
+      "name":"Chandigarh Railway Station",
+      "code":"CDG",
+      "city":"Chandigarh",
+      "state":"Chandigarh"
+   }
+]

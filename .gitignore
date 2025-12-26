@@ -1,0 +1,49 @@
+# Virtual environments
+venv/
+.env
+.env.*
+.venv 
+# Django specific
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+*.pot
+*.pyc
+
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db__pycache__/
+__pycache__/
+*.pyc
+
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.cache/
+
+# Ignore migrations if generated automatically
+*/migrations/__pycache__/
+# Uncomment next line only if migrations are auto-generated in CI
+# */migrations/*.py
+
+__pycache__/*
+__pycache__/
+**/__pycache__/
+pycache/
+**/pycache/
+*.py[cod]
+*$py.class
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

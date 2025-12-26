@@ -1,0 +1,9 @@
+# .coveragerc
+[run]
+omit =
+    */migrations/*
+    */__init__.py
+    */settings/*
+    */tasks.py
+    manage.py
+    */analytics/* 

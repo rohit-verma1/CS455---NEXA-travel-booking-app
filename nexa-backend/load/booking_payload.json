@@ -1,0 +1,17 @@
+{
+  "service_model": "train",
+  "service_id": "5129d44e-678e-42a1-9d1e-c316ca3323d1",
+  "passengers": [
+    {
+      "name": "Likith",
+      "age": 20,
+      "gender": "MALE",
+      "document_id": "Indian"
+    }
+  ],
+  "class_type": "Sleeper",
+  "from_station_id": "a061412a-0c41-4d00-94da-43e1827305d0",
+  "to_station_id": "af681093-df75-4543-83e0-dcf0d1c3ce8c",
+  "email": "jonnalikithsai@gmail.com",
+  "phone_number": "8105754789"
+}

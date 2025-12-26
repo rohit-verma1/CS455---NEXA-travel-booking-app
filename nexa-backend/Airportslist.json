@@ -1,0 +1,122 @@
+[
+   {
+      "name":"Indira Gandhi International Airport",
+      "code":"DEL",
+      "city":"Delhi",
+      "state":"Delhi"
+   },
+   {
+      "name":"Chaudhary Charan Singh International Airport",
+      "code":"LKO",
+      "city":"Lucknow",
+      "state":"Uttar Pradesh"
+   },
+   {
+      "name":"Kanpur Airport",
+      "code":"KNU",
+      "city":"Kanpur",
+      "state":"Uttar Pradesh"
+   },
+   {
+      "name":"Chhatrapati Shivaji Maharaj International Airport",
+      "code":"BOM",
+      "city":"Mumbai",
+      "state":"Maharashtra"
+   },
+   {
+      "name":"Pune Airport",
+      "code":"PNQ",
+      "city":"Pune",
+      "state":"Maharashtra"
+   },
+   {
+      "name":"Sardar Vallabhbhai Patel International Airport",
+      "code":"AMD",
+      "city":"Ahmedabad",
+      "state":"Gujarat"
+   },
+   {
+      "name":"Devi Ahilya Bai Holkar Airport",
+      "code":"IDR",
+      "city":"Indore",
+      "state":"Madhya Pradesh"
+   },
+   {
+      "name":"Jaipur International Airport",
+      "code":"JAI",
+      "city":"Jaipur",
+      "state":"Rajasthan"
+   },
+   {
+      "name":"Manohar International Airport",
+      "code":"GOX",
+      "city":"Goa",
+      "state":"Goa"
+   },
+   {
+      "name":"Chennai International Airport",
+      "code":"MAA",
+      "city":"Chennai",
+      "state":"Tamil Nadu"
+   },
+   {
+      "name":"Kempegowda International Airport",
+      "code":"BLR",
+      "city":"Bengaluru",
+      "state":"Karnataka"
+   },
+   {
+      "name":"Rajiv Gandhi International Airport",
+      "code":"HYD",
+      "city":"Hyderabad",
+      "state":"Telangana"
+   },
+   {
+      "name":"Netaji Subhas Chandra Bose International Airport",
+      "code":"CCU",
+      "city":"Kolkata",
+      "state":"West Bengal"
+   },
+   {
+      "name":"Lokpriya Gopinath Bordoloi International Airport",
+      "code":"GAU",
+      "city":"Guwahati",
+      "state":"Assam"
+   },
+   {
+      "name":"Biju Patnaik International Airport",
+      "code":"BBI",
+      "city":"Bhubaneswar",
+      "state":"Odisha"
+   },
+   {
+      "name":"Cochin International Airport",
+      "code":"COK",
+      "city":"Kochi",
+      "state":"Kerala"
+   },
+   {
+      "name":"Jay Prakash Narayan Airport",
+      "code":"PAT",
+      "city":"Patna",
+      "state":"Bihar"
+   },
+   {
+      "name":"Agra Airport",
+      "code":"AGR",
+      "city":"Agra",
+      "state":"Uttar Pradesh"
+   },
+   {
+      "name":"Visakhapatnam Airport",
+      "code":"VTZ",
+      "city":"Visakhapatnam",
+      "state":"Andhra Pradesh"
+   },
+   {
+      "name":"Shaheed Bhagat Singh International Airport",
+      "code":"IXC",
+      "city":"Chandigarh",
+      "state":"Chandigarh"
+   }
+]

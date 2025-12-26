@@ -1,0 +1,759 @@
+%!TEX program = lualatex
+\documentclass[11pt]{article}
+\usepackage[a4paper, margin=1in, includehead]{geometry}
+\geometry{a4paper} 
+\usepackage[table, svgnames, dvipsnames]{xcolor}
+\usepackage{makecell, cellspace, caption}
+\usepackage{textcomp}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{graphicx} 
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{tabularray}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhfoffset[L]{1cm} % left extra length
+\fancyhfoffset[R]{1cm} % right extra length
+\rhead{\textbf{\textit{Page-\thepage}}}
+\lhead{\textbf{\textit{Software Requirements Specification for Nexa}}}
+\cfoot{}
+\usepackage{amsmath,amssymb}  
+\usepackage{bm}  
+\usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}  
+\hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=blue} % black links, for printed output
+\usepackage{pdfsync}  
+\usepackage{wrapfig}
+\usepackage[page,toc,titletoc,title]{appendix}
+
+\usepackage{fontspec}
+\setmainfont{Arial}
+
+\usepackage{titlesec}
+
+\begin{document}
+\begin{titlingpage}
+\begin{flushright}
+    \rule{16cm}{5pt}\vskip1cm
+    \textbf{{\fontsize{30}{36}\selectfont Software Requirements}\\ {\fontsize{30}{36}\selectfont Specification}\\\vspace{1cm}\huge{for}\\\vspace{1cm}\Huge{Nexa}\\ \vspace{1.5cm}\LARGE{Version 1.0}\\\vspace{1cm}\LARGE{Prepared by}}
+\end{flushright}
+\vspace{1.0cm}
+\large{\begin{tabular*}{\columnwidth}{@{\extracolsep{\stretch{1}}}*{3}{c}@{}}
+    \Large{\textbf{Group Members}} & & \Large{\textbf{Group Name: Arcade Nation}} \\
+    \\
+    \textbf{Likith Sai Jonna} & \textbf{220483} & \href{mailto:jonnals22@iitk.ac.in}{jonnals22@iitk.ac.in} \\ 
+    \textbf{Rohit Verma} & \textbf{220917} & \href{mailto:rohitverma22@iitk.ac.in}{rohitverma22@iitk.ac.in} \\
+    \textbf{Kollamoram Karthik } & \textbf{220538} & \href{mailto:kkarthik22@iitk.ac.in}{kkarthik22@iitk.ac.in} \\
+    \textbf{K S U Rithwin} & \textbf{220537} & \href{mailto:ksupendra22@iitk.ac.in}{ksupendra22@iitk.ac.in} \\
+    \textbf{Ritesh Hans } & \textbf{220893} & \href{mailto:riteshhans22@iitk.ac.in}{riteshhans22@iitk.ac.in} \\
+    \textbf{Gottupulla Venkata Aman } & \textbf{220413} & \href{mailto:gvaman22@iitk.ac.in}{gvaman22@iitk.ac.in} \\
+    
+\end{tabular*}}
+
+\vspace{1.5cm}
+\begin{center}
+\large{
+\begin{tabular}{l l}
+    \textbf{Course:} & \textbf{CS455} \\
+    \textbf{Institute:} & \textbf{IIT Kanpur} \\
+    \textbf{Instructor:} & \textbf{Prof. Priyanka Bagade} \\
+    \textbf{Date:} & \textbf{\today}
+\end{tabular}
+}
+\end{center}
+\end{titlingpage}
+
+\titleformat{name=\section}[block]
+  {\sffamily\LARGE}
+  {}
+  {0pt}
+  {\colorsectionx}
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
+\newcommand{\colorsectionx}[1]{\colorbox{gray!120}{\parbox{\dimexpr\textwidth-2\fboxsep}{\color{white} \centering \huge{\textbf{Contents}}}}}
+
+\tableofcontents
+
+\newpage
+\titleformat{name=\section}[block]
+  {\sffamily\LARGE}
+  {}
+  {0pt}
+  {\colorsection}
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
+
+\newcommand{\colorsection}[1]{\colorbox{gray!120}{\parbox{\dimexpr\textwidth-2\fboxsep}{\color{white}\huge{\textbf\thesection. }\ #1}}}
+
+\section{\centering{\textbf{Revisions}}}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    \rowcolor{Gainsboro!60}
+    \textbf{Version} & \textbf{Primary Author(s)} & \textbf{Description of Version} & \textbf{Date Completed} \\
+    \hline
+    \makecell{v1.0} & 
+\makecell{
+Likith Sai Jonna \\ 
+Rohit Verma \\ 
+Kollamoram Karthik \\ 
+K S U Rithwin \\ 
+Ritesh Hans\\ 
+Gottupulla Venkata Aman
+} & 
+\makecell{First version of the Software \\ Requirement Specification \\ (SRS) Document} & 
+\makecell{04/09/2025}
+\\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+\section{\centering{\textbf{Introduction}}}
+\subsection{Product Scope}
+In today's fast-paced world, efficient and reliable transportation is essential for users, be this for inter-city or intra-city commute. However, finding suitable travel options, booking tickets and managing reservations can be cumbersome due to a lack of unified services, real-time updates and inconsistent pricing. Welcome, Nexa, which is developed to address these challenges by providing a comprehensive online platform for ticket booking and management across various modes, be it for trains, flights, buses etc.\\
+Our platform connects customers with verified transportation service providers, enabling a wide variety of options, seamless bookings and post-booking managements. It provides a one-stop consumer experience for the users which includes:\\
+a. various routes from source to destination\\
+b. real-time updates\\
+c. filters to suit the consumer requirements\\
+d. integrated payment gateways to book tickets seamlessly. etc\\
+Nexa also uses AI and ML features for personalized recommendations, dynamic pricing and itenary planning (of commute only), elevating the user experience. Additionally, it has a loyalty program, rewarding customers for each booking made on this platform. It also applies locks at certain areas, to prevent errors like overbooking, double booking etc. \\
+In short, Nexa aims to simplify travel planning for all our users, making transportation less cumbersome and more efficient, contributing to a positive UX.
+
+\subsection{Intended Audience and Document Overview}
+\subsubsection{Intended Audience}
+\textbf{Software Developers} who will design the software as per the requirements given in the document, in this case, the group members. \textbf{Project Managers} who will supervise the planning and execution of the software development procedure, in this case, the TAs and the course instructor. \textbf{Testers and approvers} who will perform a quality check of the designed software and give their feedback on the interface, areas of improvement, etc. which include the developers. \textbf{Users} will be the customers of the software.
+
+\subsubsection{Document Overview}
+\begin{enumerate}
+    \item \textbf{Revisions}: This section contains information about the various versions that this document has gone through.
+    \item \textbf{Introduction}: In this section, we provide some basic information that would be useful in reading the SRS, such as document conventions, abbreviations, etc. The reader may choose to skip the section if they are familiar with the basic terminologies. In any case, this section will serve as a helpful collection of information to clarify any confusion that may occur while reading the document.
+    \item \textbf{Overall Description}: This section offers an overall view of the software system and its functionalities, assumptions, and dependencies. This will be a useful read for those seeking to familiarize themselves with the system at a quick glance. A reader is encouraged to read this part as it provides a good basis for understanding the next section of the SRS.
+    \item \textbf{Specific Requirements}: This section contains detailed information about the software and explains its functions in detail through the use of numerous tree diagrams. This proves indispensable for end-users, clients, and developers alike, serving as a roadmap during the development phase and a user manual for end-users.
+    \item \textbf{Other Non-Functional Requirements}: Important non-functional requirements are expounded here. This is of special importance to the developers of the software.
+\end{enumerate}
+
+\subsection{Definitions, Acronyms, and Abbreviations}
+\begin{center}
+\begin{tabular}{|c|c|p{.5\textwidth}}
+    \hline
+    SRS & Software Requirements Specification \\
+    \hline
+    UI & User Interface \\
+    \hline
+    API & Application Programming Interface \\
+    \hline
+    UX & User Experience \\
+    \hline
+    SQL & Structured Query Language \\
+    \hline
+    OTP & One Time Password \\
+    \hline
+    FAQ & Frequently Asked Questions\\
+    \hline
+    AI & Artifical Intelligence\\
+    \hline
+    ML & Machine Learning\\
+    \hline
+    JSON & JavaScript Object Notation\\
+    \hline 
+    OAuth & Open Authorization\\
+    \hline
+    Service Providers &  Entities offering transportation services (e.g., bus operators, airlines, railways)\\
+    \hline
+    Dynamic Pricing & Real-time adjustment of ticket prices based on demand, time, and other factors\\
+    \hline
+    Overbooking & Situation where more tickets are sold than available seats/slots\\
+    \hline
+    Double Booking & Situation where the a user books a seat twice\\
+    \hline
+    Nexa & BookYourTrip\\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{Document Conventions}
+\begin{itemize}
+    \item The document is written using LaTeX (\LaTeX) to ensure the consistency of the document and to make it easier to maintain.
+    \item The document is written with the \textbf{Arial} font of size 11 with single spacing and 1-inch margins
+    \item Important keywords are highlighted in bold font and comments are italicized
+\end{itemize}
+
+\subsection{References and Acknowledgments}
+\begin{itemize}
+    \item The fundamental principles of our system design were established through the lecture notes and guidance provided by Professor Priyanka Bagade.
+
+\end{itemize}
+
+\newpage
+\section{\centering{\textbf{Overall Description}}}
+\subsection{Product Overview}
+Our product, Nexa, is designed to revolutionize the travel booking experience by providing a comprehensive online platform for ticket booking and management across various transportation modes, including buses, trains, and flights. Ideal for daily commuters, tourists, and business travelers, Nexa serves as a centralized system that connects customers with verified service providers, allowing seamless searches, bookings, and real-time updates. The platform addresses common pain points such as fragmented services, unreliable availability information, and complex management of reservations.
+The software streamlines user interactions by enabling customers to search for routes, view dynamic pricing, book tickets for multiple passengers, and manage post-booking activities like cancellations or rescheduling with penalties for last-minute changes. Service providers can onboard, manage their routes and schedules, monitor bookings, and access analytics. Nexa incorporates AI/ML features for personalized recommendations, itinerary planning, and demand forecasting. It also includes a dummy payment system for simulations, loyalty programs, notifications, and community forums to enhance user engagement and retention. Overall, the platform optimizes the travel planning process, ensuring efficiency, transparency, and user satisfaction.
+\
+\
+\subsection{Product Functionality}
+\begin{itemize}
+\item Separate dashboards for customers and service providers, with \textbf{administrative access} using designated usernames and passwords.
+\item Provision for customers to \textbf{register}, \textbf{log in}, and manage profiles, with options for subscribed users to access enhanced features like loyalty programs.
+\item Advanced search and filtering for travel options by route, date, time, category (bus, train, flight), price, rating, duration, and departure time.
+\item \textbf{Real-time visibility} of seat/slot availability, with interactive seat maps where applicable.
+\item Booking system allowing multiple passengers per transaction, application of discounts or promotions, and secure payment simulations (cards, UPI, wallets, net banking).
+\item Post-booking management including cancellations, rescheduling (with penalties), refund tracking, and viewing booking/payment history.
+\item Onboarding and management for new service providers, including verification, profile editing, and discontinuation/deletion of accounts.
+\item \textbf{Dynamic pricing} adjustments based on demand, time, and other factors.
+\item AI-based features for trip planning via chatbot, personalized recommendations, and integration of agentic AI for strategic enhancements like demand forecasting.
+\item \textbf{Notification system} for booking confirmations, updates (delays, cancellations), promotions, and loyalty reminders.
+\item \textbf{Customer feedback} mechanisms, including ratings, reviews, issue reporting, and community forums for discussions.
+\item Analytics for providers and admins, including occupancy rates, revenue trends, and system health metrics.
+\end{itemize}
+\subsection{Design and Implementation Constraints}
+\begin{itemize}
+\item As the user and booking database grows, the system must efficiently manage and store data related to bookings, user profiles, schedules, and payments.
+\item To ensure real-time information about seat availability and tracking, the implementation of efficient communication protocols between the server, providers' systems, and user devices is crucial.
+\item The platform, as of now, is available only in English, with potential for multilingual support in future iterations.
+\item With a large user base, the system must handle simultaneous booking requests, prevent overbooking/double booking, and support at least 100 daily active users and 250+ bookings per day during peak usage.
+\item Deployment on cloud services (e.g., AWS, GCP) with constraints on not exhausting free-tier limits.
+\end{itemize}
+\subsection{Assumptions and Dependencies}
+\begin{itemize}
+\item The platform seamlessly integrates with external APIs for real-time tracking (e.g., FlightRadar, Indian Railways, bus GPS) and payment simulations.
+\item Users are held accountable for their bookings; in cases of disputes or fraud, providers and admins manage resolutions effectively.
+\item Service providers supply accurate schedule and availability data, and the system depends on their timely updates to avoid discrepancies.
+\item The admins manage any changes, additions, or verifications for providers and platform policies.
+\item The system assumes stable internet connectivity for users and providers, with dependencies on secure protocols like HTTPS for data transmission.
+\end{itemize}
+\newpage
+\section{\centering{\textbf{Specific Requirements}}}
+\input{4_1}
+
+\input{4.2}
+\newpage
+\subsection{Use Case Model  }
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.8pt,arc=3pt,auto outer arc,
+                  left=4pt,right=4pt,top=2pt,bottom=2pt]  % padding controls
+\textbf{User Role : Customer}
+\end{tcolorbox}
+
+\subsubsection{Use Case 1}
+\begin{center}
+\includegraphics*[scale=0.1]{ucd/C_UC1.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Purpose} & To allow the customer to register an account, log in or log out, reset password, and manage personal profile details such as name and contact information. \\
+\hline
+\textbf{Requirements Traceability} & The system must support multiple registration options (email, social login), provide secure login and logout, implement password recovery/reset mechanisms, and allow CRUD operations for managing profile information. \\
+\hline
+\textbf{Priority} & High, since account creation, authentication, and profile management are core entry points for system access. \\
+\hline
+\textbf{Pre Conditions} & The customer must have access to the registration interface (email or social login). For login, valid credentials must already exist. \\
+\hline
+\textbf{Post Conditions} & The customer successfully registers or logs in, can manage their profile, and any updates are saved securely in the system database. All authentication-related activities are logged. \\
+\hline
+\end{tabular}
+\end{center}
+\newpage
+\subsubsection{Use Case 2}
+\begin{center}
+\includegraphics*[scale=0.1]{ucd/C_UC2.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Purpose} & To allow the customer to search for travel options, filter and view results, check availability, select services, apply discounts, make secure payments, and receive digital tickets for their bookings. \\
+\hline
+\textbf{Requirements Traceability} & The system must support search by source, destination, date, and time; provide filtering and sorting options; display provider details and reviews; check real-time seat/slot availability; support AI-based trip planning; allow service selection and passenger detail entry; apply discounts and loyalty points; enable secure payments (UPI, cards, wallets, net banking); and issue digital tickets with booking records. \\
+\hline
+\textbf{Priority} & High, as this workflow forms the core functionality of the system, enabling customers to complete end-to-end bookings. \\
+\hline
+\textbf{Pre Conditions} & The customer must have a valid account, be logged into the system, and have internet access to search and book services. \\
+\hline
+\textbf{Post Conditions} & The customer successfully searches, books, pays securely, and receives a digital ticket with booking confirmation. All booking and payment activities are logged in the system. \\
+\hline
+\end{tabular}
+\end{center}
+\subsubsection{Use Case 3}
+\begin{center}
+\includegraphics*[scale=0.1]{ucd/C_UC3.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Purpose} & To allow the customer to manage bookings and access travel-related support. This includes viewing and managing bookings, tracking refunds, rescheduling (if permitted), editing passenger details, accessing travel guidance, receiving AI-based travel support, and giving ratings and reviews. \\
+\hline
+\textbf{Requirements Traceability} & The system must provide functionalities for booking management (view, cancel, reschedule), refund tracking, passenger detail editing, real-time journey tracking, travel guidance content, AI-based travel assistance, and customer feedback submission. \\
+\hline
+\textbf{Priority} & High, as booking management and real-time support are essential for customer satisfaction and system usability. \\
+\hline
+\textbf{Pre Conditions} & The customer must have a valid account, be logged into the system, and have existing or new bookings. \\
+\hline
+\textbf{Post Conditions} & The customer can successfully manage bookings, track journeys, receive travel guidance, get AI-based support, and provide feedback, with all activities recorded in the system. \\
+\hline
+\end{tabular}
+\end{center}
+\subsubsection{Use Case 4}
+\begin{center}
+\includegraphics*[scale=0.1]{ucd/C_UC4.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Purpose} & To allow the customer to manage payments and loyalty features such as viewing transactions, tracking refunds, redeeming loyalty coins for discounts, earning loyalty coins, referral rewards, and checking wallet balance. \\
+\hline
+\textbf{Requirements Traceability} & The system must support loyalty points accrual, redemption, and tracking, provide wallet balance visibility, and enable referral-based multi-level reward distribution. \\
+\hline
+\textbf{Priority} & High, since managing loyalty programs and payments directly impacts customer engagement, retention, and satisfaction. \\
+\hline
+\textbf{Pre Conditions} & The customer must have a valid account and be logged into the system with access to payments and loyalty features. \\
+\hline
+\textbf{Post Conditions} & The customer can successfully view and manage transactions, refunds, loyalty coins, referral rewards, and wallet balance, with all activities recorded in the system. \\
+\hline
+\end{tabular}
+\end{center}
+\newpage
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.8pt,arc=3pt,auto outer arc,
+                  left=4pt,right=4pt,top=2pt,bottom=2pt]  % padding controls
+\textbf{User Role : Admin}
+\end{tcolorbox}
+\subsubsection{Use Case 5}
+\begin{center}
+\includegraphics*[scale=0.06]{ucd/A_UC1.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \textbf{Purpose} & To allow the admin to securely log in with Multi-Factor Authentication (MFA) and review login attempt logs for security monitoring \\
+    \hline
+    \textbf{Requirements Traceability} & The system must support MFA for admin login and maintain detailed logs of all login attempts \\
+    \hline
+    \textbf{Priority} & High, since ensuring secure access to the admin panel and monitoring login activities is critical for system protection \\
+    \hline
+    \textbf{Pre Conditions} & The admin must have valid login credentials and MFA setup enabled in the system \\
+    \hline
+    \textbf{Post Conditions} & The admin successfully logs in with MFA, and all login attempts are recorded in the system logs \\
+    \hline
+\end{tabular}
+\end{center}
+\subsubsection{Use Case 6}
+\begin{center}
+\includegraphics*[scale=0.08]{ucd/A_UC2.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \textbf{Purpose} & To allow the admin to manage users and providers by creating or updating profiles, suspending accounts, resetting credentials, and verifying provider documents \\
+    \hline
+    \textbf{Requirements Traceability} & The system must support user search, profile updates, account suspension, credential resets, and provider application approvals/rejections \\
+    \hline
+    \textbf{Priority} & High, as this functionality ensures smooth management of both users and providers \\
+    \hline
+    \textbf{Pre Conditions} & The admin must have authenticated access to the system with the required management permissions \\
+    \hline
+    \textbf{Post Conditions} & Users and providers are managed as per admin actions; system updates profiles, account statuses, and provider verification records \\
+    \hline
+    \textbf{Actors} & Admin \\
+    \hline
+\end{tabular}
+\end{center}
+\subsubsection{Use Case 7}
+\begin{center}
+\includegraphics*[scale=0.1]{ucd/A_UC3.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \textbf{Purpose} & To enable the admin to access the database, run queries, filter bookings, view transaction history, and generate financial reports \\
+    \hline
+    \textbf{Requirements Traceability} & The system must provide database access, booking filters, financial data visibility, and reporting tools for the admin \\
+    \hline
+    \textbf{Priority} & High, as financial and booking oversight is crucial for maintaining system transparency and financial health \\
+    \hline
+    \textbf{Pre Conditions} & The admin must be logged in with permissions to access financial and booking data \\
+    \hline
+    \textbf{Post Conditions} & The admin can view and analyze bookings and transactions, and generate reports for financial review \\
+    \hline
+    \textbf{Actors} & Admin \\
+    \hline
+\end{tabular}
+\end{center}
+\subsubsection{Use Case 8}
+\begin{center}
+\includegraphics*[scale=0.1]{ucd/A_UC4.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \textbf{Purpose} & To allow the admin to monitor the system, analyze provider performance, and send targeted communications \\
+    \hline
+    \textbf{Requirements Traceability} & The system must support real-time monitoring, provider performance tracking, and communication tools for targeted messaging \\
+    \hline
+    \textbf{Priority} & Medium, as analytics and communication enhance efficiency but are not as critical as security or financial oversight \\
+    \hline
+    \textbf{Pre Conditions} & The admin must be logged into the system with access rights for analytics and communication tools \\
+    \hline
+    \textbf{Post Conditions} & The admin successfully monitors the system, evaluates provider performance, and communicates with relevant users or providers \\
+    \hline
+    \textbf{Actors} & Admin \\
+    \hline
+\end{tabular}
+
+\end{center}
+\vspace{8cm}
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.8pt,arc=3pt,auto outer arc,
+                  left=4pt,right=4pt,top=2pt,bottom=2pt]  % padding controls
+\textbf{User Role : Travel Service Provider}
+\end{tcolorbox}
+\subsubsection{Use Case 9}
+\begin{center}
+\includegraphics*[scale=0.1]{ucd/P-UC1.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Purpose} & To allow the provider to register with company details, securely log in, reset passwords, manage company profile information, and deactivate or delete their account when required. \\
+\hline
+\textbf{Requirements Traceability} & The system must support provider onboarding with company details, secure login via email/OTP, password reset functionality, CRUD operations for company profile management, and account deactivation or deletion. \\
+\hline
+\textbf{Priority} & High, as provider authentication and profile management are essential for maintaining verified and secure provider participation in the platform. \\
+\hline
+\textbf{Pre Conditions} & The provider must have access to the registration module and provide valid company details. For login, valid credentials or OTP must be available. \\
+\hline
+\textbf{Post Conditions} & The provider successfully registers, logs in securely, manages company profile data, or deactivates their account. All activities are stored in the system for audit and compliance. \\
+\hline
+\end{tabular}
+\end{center}
+\subsubsection{Use Case 10}
+\begin{center}
+\includegraphics*[scale=0.07]{ucd/P-UC2.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Purpose} & To allow the provider to manage transportation services by adding, updating, or deleting routes, managing vehicle details, defining seat layouts, setting pricing, managing cancellation/rescheduling policies, and blocking seats for internal use or maintenance. \\
+\hline
+\textbf{Requirements Traceability} & The system must support service CRUD (create, read, update, delete) operations, vehicle and transport details management, flexible seat layout definitions (economy, premium, sleeper), static and dynamic pricing mechanisms, policy configuration for cancellations and rescheduling, and seat blocking functionality. \\
+\hline
+\textbf{Priority} & High, as effective service management ensures smooth operations, accurate availability, and customer satisfaction. \\
+\hline
+\textbf{Pre Conditions} & The provider must have a valid account, be logged into the system, and have authentication rights to access service management features. \\
+\hline
+\textbf{Post Conditions} & Services are successfully added, updated, or removed; vehicle and seat layout information is stored; pricing and policies are updated; and blocked seats are reflected in the availability shown to customers. All actions are logged in the system. \\
+\hline
+\end{tabular}
+\end{center}
+\subsubsection{Use Case 11}
+\begin{center}
+\includegraphics*[scale=0.12]{ucd/P-UC3.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+    \hline
+    \textbf{Purpose} & To allow the provider to manage bookings and financial records by viewing all bookings, 
+searching and filtering them, sending notifications to customers, reviewing transaction 
+history, tracking payments and refunds, and receiving monthly settlements from the platform. \\
+    \hline
+    \textbf{Requirements Traceability} & The system must support provider access to booking lists with filtering and searching options, 
+notification services (delays, cancellations, updates), transaction history logs, payment 
+and refund tracking, and automated monthly settlements with financial reporting.\\
+    \hline
+    \textbf{Priority} & High, as booking visibility, financial management, and timely settlements are critical for 
+provider operations and trust in the platform.\\
+    \hline
+    \textbf{Pre Conditions} & The provider must have a valid account, be logged into the platform, and have active bookings 
+or financial transactions.\\
+    \hline
+    \textbf{Post Conditions} & The provider successfully views and manages booking data, tracks financial records, 
+and receives settlements. All booking and financial activities are logged by the system. \\
+    \hline
+    \textbf{Actors} & Travel Service Provider
+\\
+    \hline
+\end{tabular}
+\end{center}
+\subsubsection{Use Case 12}
+\begin{center}
+\includegraphics*[scale=0.06]{ucd/P-UC4.png}\\
+\vspace{5mm}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Purpose} & To allow the provider to manage bookings and financial records by viewing all bookings, searching and filtering them, sending notifications to customers, reviewing transaction history, tracking payments and refunds, and receiving monthly settlements from the platform. \\
+\hline
+\textbf{Requirements Traceability} & The system must support provider access to booking lists with filtering and searching options, notification services (delays, cancellations, updates), transaction history logs, payment and refund tracking, and automated monthly settlements with financial reporting. \\
+\hline
+\textbf{Priority} & High, as booking visibility, financial management, and timely settlements are critical for provider operations and trust in the platform. \\
+\hline
+\textbf{Pre Conditions} & The provider must have a valid account, be logged into the platform, and have active bookings or financial transactions. \\
+\hline
+\textbf{Post Conditions} & The provider successfully views and manages booking data, tracks financial records, and receives settlements. All booking and financial activities are logged by the system. \\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+\section{\centering{\textbf{Other Non-Functional Requirements}}}
+\subsection{Performance Requirements}
+The software should maintain \textbf{99.5\% uptime}, ensuring that customers and service providers
+can access ticket booking and management services with minimal disruptions, excluding scheduled
+maintenance windows. The system must support at least \textbf{250 ticket bookings per day} 
+and \textbf{100 concurrent users}, scalable seamlessly during peak usage periods (e.g. festival seasons, flash sales).  
+
+The response time for booking, cancelation, or modification requests should be
+\textbf{$\leq$ 3 seconds} under normal conditions. The platform must implement \textbf{ load balancing and autoscaling} when deployed on cloud infrastructure
+(AWS/GCP/Azure) to handle sudden spikes in traffic.  
+
+Furthermore, the system should include \textbf{fault tolerance and automated recovery mechanisms}, 
+ensuring minimal downtime in the event of hardware, network, or software failures.
+
+\subsection{Safety and Security Requirements}
+The system must ensure robust safety and security across all operations:  
+
+\begin{itemize}
+    \item \textbf{User Authentication \& Role Management:} Secure authentication with role-based access (provider vs. customer) must be implemented. Multifactor authentication (MFA) should be available for providers.  
+    \item \textbf{Data Encryption:} All sensitive information (personal data, reservation details, and payment information) must be encrypted both in transit (TLS/HTTPS) and at rest. 
+    Passwords must be securely stored using salting and hashing.  
+    \item \textbf{Secure Transactions:} Even dummy payments must go through a secure payment API. Transactions should be validated, duplication prevented, and users are notified of the results.  
+    \item \textbf{Fraud Prevention:} Booking validation must prevent double booking and overbooking. AI-based anomaly detection can be used to identify suspicious activity (for example, bots that spam the bookings).  
+    \item \textbf{Cloud \& Physical Security:} Since the system is deployed in the cloud, strict IAM policies and firewall protections must be applied. Only authorized personnel may access server instances.  
+\end{itemize}
+
+\subsection{Software Quality Attributes}
+
+\subsubsection{Usability}
+The system should provide \textbf{separate dashboards} for customers and providers, 
+with intuitive workflows for booking, cancellations, modifications, and provider 
+onboarding. It must comply with \textbf{WCAG accessibility standards} to ensure 
+access for all users. Additionally, \textbf{AI-powered assistance} (e.g., chatbot support) 
+should be integrated to help users navigate the platform.
+
+\subsubsection{Availability}
+In case of a cloud service crash, the system should restore services within 
+\textbf{1 hour} using automated recovery scripts and snapshots. The platform must 
+scale dynamically to handle \textbf{high demand (e.g., 10$\times$ normal load during 
+peak travel seasons)}.
+
+\subsubsection{Reliability}
+The \textbf{Mean Time to Failure (MTTF)} must be at least one week under production 
+load. The system shall undergo \textbf{unit, integration, load, and regression testing} 
+before deployment. Booking operations must consistently return correct results 
+(e.g., no duplicate seats assigned).
+
+\subsubsection{Portability}
+The application will be developed using \textbf{Django (backend)} and 
+\textbf{Bootstrap + EXT JS (frontend)} with cloud deployment. It should run 
+smoothly on \textbf{desktop, tablet, and mobile browsers}. The platform must also 
+support \textbf{migration across cloud providers} (AWS, GCP, Azure) with minimal 
+reconfiguration.
+
+\newpage
+\section{\centering{\textbf{Other Requirements}}}
+\subsection{Legal Requirements and Copyright}
+User data collected should be stored in the country’s regional data center. This is to comply with data protection and privacy rules that may be enforced by the Government of the nation. 
+\\
+Copyright of the source code and the documents must be retained by the developers of the system.
+
+\subsection{Authentication}
+Permission will be required for utilising OTPs for the authentication process as this will require sending automated emails to the user's email id. 
+
+\end{document}
+\appendixpageoff
+\begin{appendices}
+\newpage
+
+\section{\centering{\textbf{Data Dictionary}}}
+
+\subsection{Users Database}
+\begin{center}
+\begin{tabular}{|m{0.2\textwidth}|m{0.4\textwidth}|m{0.3\textwidth}|}
+    \hline
+    \textbf{Attribute} & \textbf{Description} & \textbf{Requirements} \\
+    \hline
+    ID & Unique ID of the user & Unique for each user \\
+    \hline
+    Name & Full name of the user & String \\
+    \hline
+    Email & Email address of the user & Unique, valid format \\
+    \hline
+    Phone & Contact number & String, optional \\
+    \hline
+    Password & User password & Stored as encrypted string \\
+    \hline
+    Role & Role of the user & Enum: Customer / Provider / Admin \\
+    \hline
+    Provider Meta & Company/license info for providers & JSON / Optional \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{Services \& Schedules Database}
+\begin{center}
+\begin{tabular}{|m{0.2\textwidth}|m{0.4\textwidth}|m{0.3\textwidth}|}
+    \hline
+    \textbf{Attribute} & \textbf{Description} & \textbf{Requirements} \\
+    \hline
+    Service ID & Unique ID of the service & Unique per service \\
+    \hline
+    Provider ID & Reference to provider (User ID) & Must be valid \\
+    \hline
+    Mode & Travel mode & Enum: Bus / Train / Flight \\
+    \hline
+    Route & Source, destination, stops & String / JSON \\
+    \hline
+    Schedule ID & Unique schedule instance & Unique per departure \\
+    \hline
+    Departure / Arrival & Time of departure/arrival & Timestamp \\
+    \hline
+    Seat Layout & Seat configuration & JSON / Optional \\
+    \hline
+    Pricing & Base/dynamic fare rules & Numeric / JSON \\
+    \hline
+    Status & Availability status & Enum: Scheduled / Cancelled \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{Bookings Database}
+\begin{center}
+\begin{tabular}{|m{0.2\textwidth}|m{0.4\textwidth}|m{0.3\textwidth}|}
+    \hline
+    \textbf{Attribute} & \textbf{Description} & \textbf{Requirements} \\
+    \hline
+    Booking ID & Unique ID of the booking & Unique \\
+    \hline
+    User ID & Reference to customer & Must be valid \\
+    \hline
+    Service / Schedule ID & Reference to booked service & Must be valid \\
+    \hline
+    Passenger Info & Names and details & JSON array \\
+    \hline
+    Seats & Allocated seat numbers & String / Optional \\
+    \hline
+    Payment Status & Success / Fail / Mock & Enum \\
+    \hline
+    Amount & Booking cost & Numeric \\
+    \hline
+    Created At & Time booking was made & Timestamp \\
+    \hline
+    Status & Booking state & Enum: Pending / Confirmed / Cancelled / Refunded \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{Reviews \& Reports Database}
+\begin{center}
+\begin{tabular}{|m{0.2\textwidth}|m{0.4\textwidth}|m{0.3\textwidth}|}
+    \hline
+    \textbf{Attribute} & \textbf{Description} & \textbf{Requirements} \\
+    \hline
+    Review ID & Unique ID for review & Unique \\
+    \hline
+    Booking ID & Link to booking & Must be valid \\
+    \hline
+    User ID & Author of review/report & Must be valid \\
+    \hline
+    Provider ID & Related provider & Must be valid \\
+    \hline
+    Rating & Numeric rating & Integer (1–5) \\
+    \hline
+    Feedback & Review/comment text & String \\
+    \hline
+    Report & Issue type or flag & Enum: Safety / Service / Fraud / Abuse \\
+    \hline
+    Status & Resolution status & Enum: Open / In Review / Resolved \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{Forums Database}
+\begin{center}
+\begin{tabular}{|m{0.2\textwidth}|m{0.4\textwidth}|m{0.3\textwidth}|}
+    \hline
+    \textbf{Attribute} & \textbf{Description} & \textbf{Requirements} \\
+    \hline
+    Post ID & Unique ID of post/thread & Unique \\
+    \hline
+    Parent Post ID & For replies & Nullable (thread if null) \\
+    \hline
+    Author ID & User who created post & Must be valid \\
+    \hline
+    Title & Title (threads only) & String / Optional \\
+    \hline
+    Body & Content of post & String \\
+    \hline
+    Tags & Labels for categorization & Array / Optional \\
+    \hline
+    Votes & Upvotes/downvotes & Integer \\
+    \hline
+    Status & Post visibility & Enum: Visible / Hidden \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{Notifications Database}
+\begin{center}
+\begin{tabular}{|m{0.2\textwidth}|m{0.4\textwidth}|m{0.3\textwidth}|}
+    \hline
+    \textbf{Attribute} & \textbf{Description} & \textbf{Requirements} \\
+    \hline
+    Notification ID & Unique ID of the notification & Unique \\
+    \hline
+    Recipient ID & User receiving the notification & Must be valid \\
+    \hline
+    Channel & Delivery channel & Enum: Email / SMS / In-App \\
+    \hline
+    Content & Message payload & String / JSON \\
+    \hline
+    Status & Delivery state & Enum: Queued / Sent / Failed \\
+    \hline
+    Timestamp & Time of sending & Timestamp \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{Loyalty \& Referrals Database}
+\begin{center}
+\begin{tabular}{|m{0.2\textwidth}|m{0.4\textwidth}|m{0.3\textwidth}|}
+    \hline
+    \textbf{Attribute} & \textbf{Description} & \textbf{Requirements} \\
+    \hline
+    Transaction ID & Unique ID of loyalty transaction & Unique \\
+    \hline
+    User ID & User earning/redeeming points & Must be valid \\
+    \hline
+    Points Change & Points added/deducted & Integer \\
+    \hline
+    Reason & Earn / Redeem / Referral & Enum \\
+    \hline
+    Referral Link ID & Referral association if any & Optional \\
+    \hline
+    Balance & Current balance (computed) & Integer \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{AI Features Database}
+\begin{center}
+\begin{tabular}{|m{0.2\textwidth}|m{0.4\textwidth}|m{0.3\textwidth}|}
+    \hline
+    \textbf{Attribute} & \textbf{Description} & \textbf{Requirements} \\
+    \hline
+    Session ID & Unique session for chat/AI query & Unique \\
+    \hline
+    User ID & User initiating AI interaction & Must be valid \\
+    \hline
+    Query & Customer’s query/input & String \\
+    \hline
+    Response & AI/system-generated response & String / JSON \\
+    \hline
+    Timestamp & Time of interaction & Timestamp \\
+    \hline
+\end{tabular}
+\end{center}
+\section{\centering{\textbf{Group Log}}}
+\begin{tabular}{|>{\centering\arraybackslash}m{1cm}|
+                >{\centering\arraybackslash}m{2cm}|
+                >{\centering\arraybackslash}m{2.5cm}|
+                >{\centering\arraybackslash}m{2cm}|
+                m{6.2cm}|}
+\hline
+\textbf{S.No} & \textbf{Date} & \textbf{Timings} & \textbf{Venue} & \textbf{Description} \\
+\hline
+1 & 30/08/2024 & 22:00--23:59 & Hall-9 & Went through the given requirements and decided on the overall system architecture. Finalized tech stack for frontend, backend, database, and APIs. \\
+\hline
+2 & 31/08/2024 & 21:00--22:00 & Hall-1 & Planned the main features the system could provide and discussed the database requirements. \\
+\hline
+3 & 02/09/2024 & 21:30--22:30 & Google Meet & Finalized the SRS template. Divided the work among the team and set a plan for completing drafts. \\
+\hline
+\end{tabular}
+
+\end{appendices}
+\end{document}

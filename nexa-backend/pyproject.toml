@@ -1,0 +1,29 @@
+[project]
+name = "nexa-backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "celery>=5.5.3",
+    "dj-database-url>=3.0.1",
+    "django>=5.2.7",
+    "django-celery-beat>=2.8.1",
+    "django-cors-headers>=4.9.0",
+    "django-ratelimit>=4.1.0",
+    "django-silk>=5.4.3",
+    "djangorestframework>=3.16.1",
+    "drf-spectacular>=0.28.0",
+    "drf-yasg>=1.21.11",
+    "google-genai>=1.44.0",
+    "google-generativeai>=0.8.5",
+    "locust>=2.42.2",
+    "psycopg>=3.2.10",
+    "psycopg2>=2.9.11",
+    "qrcode>=8.2",
+    "redis>=7.0.1",
+    "reportlab>=4.4.4",
+    "requests>=2.32.3",
+    "uvicorn>=0.38.0",
+    "whitenoise>=6.11.0",
+]

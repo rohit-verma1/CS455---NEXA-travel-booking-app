@@ -1,0 +1,55 @@
+\subsection{External Interface Requirements}
+
+\subsubsection{User Interfaces}
+The Nexa system will be delivered as a responsive web application accessible on desktops, laptops, tablets, and smartphones. 
+The frontend will be built using EXT.js, TailwindCSS, providing a clean layout and adaptive design across all screen sizes. 
+
+For \textbf{customers}, the interface will include a search bar for entering route, date, and travel type. 
+Search results will support filtering (price, amenities, rating, departure time) and sorting (price, duration, rating). 
+Real-time seat availability will be displayed, with interactive seat maps available where providers define layouts. 
+The customer dashboard will include Profile, My Bookings, Payment History, Loyalty Points, Notifications, and Community Forums. 
+Customers will also access travel blogs, FAQs, and AI-based itinerary planning.
+
+For \textbf{providers}, the interface will feature a dashboard for managing services, schedules, pricing, and policies. 
+It will also present bookings, occupancy rates, and revenue trends. 
+Providers can respond to reviews, flag issues, and broadcast updates to passengers.
+
+For \textbf{administrators}, the interface will provide system-wide control tools. 
+Admins will be able to verify providers, moderate content, resolve disputes, and oversee flagged reports. 
+Analytics dashboards will present system health (active users, bookings per minute), financial summaries, and usage trends. 
+Administrators will also configure platform policies and issue announcements or maintenance notices.
+
+All interfaces will follow accessibility guidelines (WCAG 2.1) and support usability features such as keyboard navigation, high-contrast mode, and optional multilingual support.
+
+\subsubsection{Software Interfaces}
+The backend will be implemented using Django in a microservices style. RESTful APIs (JSON) will connect frontend and backend, as well as enable external integrations. Redis will be used for caching and lightweight queues.
+
+\textbf{Operating Environment:}
+\begin{itemize}
+    \item Backend services and the primary PostgreSQL database will run on a Linux-based cloud or local server.
+    \item The client-side web app will support all modern browsers (Chrome, Safari, Firefox, Edge, Brave).
+\end{itemize}
+
+\textbf{Databases (/Domains) :}
+PostgreSQL will serve as the relational database. Related features will be grouped into logical tables with JSONB fields for flexibility. The main domains include:
+\begin{itemize}
+    \item \textbf{Users:} Stores all user accounts information (customers, providers, and administrators) along with authentication and role information.
+    \item \textbf{Services \& Schedules:} Stores travel services (bus, train, flight) and their associated schedules, routes, live location, and basic service details.
+    \item \textbf{Bookings:} Stores booking records, passenger details, payment status (mock), cancellations, and reschedules.
+    \item \textbf{Reviews \& Reports:} Stores customer ratings, feedback, and issue reports related to services or providers.
+    \item \textbf{Forums:} Stores discussion threads, replies, and votes for community interactions.
+    \item \textbf{Notifications:} Stores alerts, confirmations, and promotional messages sent to users.
+    \item \textbf{Loyalty \& Referrals:} Stores loyalty point transactions and referral program records.
+    \item \textbf{AI Features:} Stores previous customer interactions, generated itineraries, and chat history to support AI-driven features.
+\end{itemize}
+
+
+\textbf{External Services:}
+\begin{itemize}
+    \item \textbf{Payment Simulation:} A mock module will simulate card/UPI transactions to test booking workflows without real payments.
+    \item \textbf{Notification Simulation:} Email/SMS alerts will be tested using console outputs, local mail servers, or free-tier services (e.g., Mailtrap, Gmail API).
+    \item \textbf{Tracking APIs:} Free-tier or open APIs (e.g., FlightRadar, Indian Railways) or mock GPS feeds will provide live tracking data.
+    \item \textbf{Authentication:} Social login via OAuth 2.0 may be enabled using free-tier API keys (Google, GitHub).
+    \item \textbf{AI/ML Modules:} Itinerary planning, demand forecasting, and recommendation services will be provided by internal microservices. 
+    Where necessary, free-tier LLM APIs (e.g., Google Gemini or OpenAI free credits) may be leveraged for chatbot-style trip planning and contextual guidance.
+\end{itemize}

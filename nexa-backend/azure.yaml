@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: nexa-backend
+metadata:
+    template: azd-init@1.21.0
+services:
+    nexa-backend:
+        project: .
+        host: containerapp
+        language: python
+        docker:
+            path: Dockerfile
+resources:
+    nexa-backend:
+        type: host.containerapp
+        uses:
+            - nexadb
+        port: 8000
+    nexadb:
+        type: db.postgres

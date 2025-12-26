@@ -1,0 +1,3 @@
+Method,Name,Error,Occurrences
+POST,Login API,HTTPError('429 Client Error: Too Many Requests for url: Login API'),23
+POST,Login API,HTTPError('500 Server Error: Internal Server Error for url: Login API'),8

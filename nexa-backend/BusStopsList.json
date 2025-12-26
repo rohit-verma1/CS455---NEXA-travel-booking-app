@@ -1,0 +1,562 @@
+[
+  {
+    "name": "Delhi",
+    "code": "DEL",
+    "city": "Delhi",
+    "state": "Delhi",
+    "points": [
+      {
+        "name": "Kashmere Gate ISBT",
+        "code": "ISBTKG"
+      },
+      {
+        "name": "Anand Vihar ISBT",
+        "code": "ISBTAV"
+      },
+      {
+        "name": "Sarai Kale Khan ISBT",
+        "code": "ISBTSKK"
+      },
+      {
+        "name": "Azadpur Terminal",
+        "code": "AZDP"
+      },
+      {
+        "name": "Dhaula Kuan",
+        "code": "DKN"
+      }
+    ]
+  },
+  {
+    "name": "Lucknow",
+    "code": "LKO",
+    "city": "Lucknow",
+    "state": "Uttar Pradesh",
+    "points": [
+      {
+        "name": "Alambagh Bus Station",
+        "code": "ALMB"
+      },
+      {
+        "name": "Charbagh",
+        "code": "CHBG"
+      },
+      {
+        "name": "Kaiserbagh",
+        "code": "KSBG"
+      },
+      {
+        "name": "Polytechnic",
+        "code": "PLTC"
+      },
+      {
+        "name": "Dubagga",
+        "code": "DBGA"
+      }
+    ]
+  },
+  {
+    "name": "Kanpur",
+    "code": "KNU",
+    "city": "Kanpur",
+    "state": "Uttar Pradesh",
+    "points": [
+      {
+        "name": "Jhakarkati Bus Station",
+        "code": "JKKT"
+      },
+      {
+        "name": "Rawatpur",
+        "code": "RWTP"
+      },
+      {
+        "name": "Naubasta",
+        "code": "NBST"
+      },
+      {
+        "name": "Barra",
+        "code": "BRRA"
+      },
+      {
+        "name": "Fazalganj",
+        "code": "FZLG"
+      }
+    ]
+  },
+  {
+    "name": "Mumbai",
+    "code": "BOM",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "points": [
+      {
+        "name": "Dadar TT",
+        "code": "DDR"
+      },
+      {
+        "name": "Andheri East",
+        "code": "ANDR"
+      },
+      {
+        "name": "Kurla Nehru Nagar",
+        "code": "KRLN"
+      },
+      {
+        "name": "Bandra (E)",
+        "code": "BNDE"
+      },
+      {
+        "name": "Borivali Depot",
+        "code": "BORV"
+      }
+    ]
+  },
+  {
+    "name": "Pune",
+    "code": "PNQ",
+    "city": "Pune",
+    "state": "Maharashtra",
+    "points": [
+      {
+        "name": "Swargate Bus Stand",
+        "code": "SWGT"
+      },
+      {
+        "name": "Shivajinagar Bus Stand",
+        "code": "SVJR"
+      },
+      {
+        "name": "Pune Station",
+        "code": "PNST"
+      },
+      {
+        "name": "Nigdi",
+        "code": "NGDI"
+      },
+      {
+        "name": "Katraj",
+        "code": "KTRJ"
+      }
+    ]
+  },
+  {
+    "name": "Ahmedabad",
+    "code": "AMD",
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "points": [
+      {
+        "name": "Gita Mandir Bus Stand",
+        "code": "GTMD"
+      },
+      {
+        "name": "Nehru Nagar",
+        "code": "NNRG"
+      },
+      {
+        "name": "Kalupur",
+        "code": "KLP"
+      },
+      {
+        "name": "Iskon Cross Road",
+        "code": "ISCN"
+      },
+      {
+        "name": "Naroda",
+        "code": "NRDA"
+      }
+    ]
+  },
+  {
+    "name": "Indore",
+    "code": "IDR",
+    "city": "Indore",
+    "state": "Madhya Pradesh",
+    "points": [
+      {
+        "name": "Sarwate Bus Stand",
+        "code": "SRWT"
+      },
+      {
+        "name": "Gangwal Bus Stand",
+        "code": "GNGL"
+      },
+      {
+        "name": "Vijay Nagar",
+        "code": "VJNR"
+      },
+      {
+        "name": "Rajendra Nagar",
+        "code": "RJNR"
+      },
+      {
+        "name": "Dewas Naka",
+        "code": "DWNK"
+      }
+    ]
+  },
+  {
+    "name": "Jaipur",
+    "code": "JAI",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "points": [
+      {
+        "name": "Sindhi Camp Bus Stand",
+        "code": "SNDC"
+      },
+      {
+        "name": "Durgapura",
+        "code": "DRGP"
+      },
+      {
+        "name": "Sodala",
+        "code": "SDLA"
+      },
+      {
+        "name": "Lal Kothi",
+        "code": "LLKT"
+      },
+      {
+        "name": "Gopalpura",
+        "code": "GPLP"
+      }
+    ]
+  },
+  {
+    "name": "Goa",
+    "code": "GOX",
+    "city": "Goa",
+    "state": "Goa",
+    "points": [
+      {
+        "name": "Panjim KTC Bus Stand",
+        "code": "PNJM"
+      },
+      {
+        "name": "Margao KTC Bus Stand",
+        "code": "MRGA"
+      },
+      {
+        "name": "Mapusa KTC",
+        "code": "MPSA"
+      },
+      {
+        "name": "Vasco Bus Stand",
+        "code": "VSCO"
+      },
+      {
+        "name": "Ponda Bus Stand",
+        "code": "PNDA"
+      }
+    ]
+  },
+  {
+    "name": "Chennai",
+    "code": "MAA",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "points": [
+      {
+        "name": "CMBT Koyambedu",
+        "code": "CMBT"
+      },
+      {
+        "name": "Broadway Bus Terminus",
+        "code": "BWDY"
+      },
+      {
+        "name": "T Nagar",
+        "code": "TNGR"
+      },
+      {
+        "name": "Saidapet",
+        "code": "SDPT"
+      },
+      {
+        "name": "Guindy",
+        "code": "GNDY"
+      }
+    ]
+  },
+  {
+    "name": "Bengaluru",
+    "code": "BLR",
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "points": [
+      {
+        "name": "Kempegowda (Majestic)",
+        "code": "KBS"
+      },
+      {
+        "name": "Shivajinagar",
+        "code": "SVN"
+      },
+      {
+        "name": "K R Market",
+        "code": "KRM"
+      },
+      {
+        "name": "Yeshwanthpur TTMC",
+        "code": "YPRB"
+      },
+      {
+        "name": "Hebbal TTMC",
+        "code": "HBL"
+      }
+    ]
+  },
+  {
+    "name": "Hyderabad",
+    "code": "HYD",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "points": [
+      {
+        "name": "MGBS (Imlibun)",
+        "code": "MGBS"
+      },
+      {
+        "name": "Jubilee Bus Station",
+        "code": "JBS"
+      },
+      {
+        "name": "Koti Bus Depot",
+        "code": "KOTI"
+      },
+      {
+        "name": "Dilsukhnagar",
+        "code": "DSNR"
+      },
+      {
+        "name": "Secunderabad",
+        "code": "SCBD"
+      }
+    ]
+  },
+  {
+    "name": "Kolkata",
+    "code": "CCU",
+    "city": "Kolkata",
+    "state": "West Bengal",
+    "points": [
+      {
+        "name": "Esplanade",
+        "code": "ESP"
+      },
+      {
+        "name": "Howrah",
+        "code": "HWHB"
+      },
+      {
+        "name": "Karunamoyee",
+        "code": "KMY"
+      },
+      {
+        "name": "Garia",
+        "code": "GAR6"
+      },
+      {
+        "name": "Shyambazar",
+        "code": "SYMZ"
+      }
+    ]
+  },
+  {
+    "name": "Guwahati",
+    "code": "GAU",
+    "city": "Guwahati",
+    "state": "Assam",
+    "points": [
+      {
+        "name": "Paltan Bazar",
+        "code": "PLTN"
+      },
+      {
+        "name": "Adabari",
+        "code": "ADBR"
+      },
+      {
+        "name": "Khanapara",
+        "code": "KHNP"
+      },
+      {
+        "name": "ISBT Guwahati",
+        "code": "ISBTG"
+      },
+      {
+        "name": "Jalukbari",
+        "code": "JLBK"
+      }
+    ]
+  },
+  {
+    "name": "Bhubaneswar",
+    "code": "BBI",
+    "city": "Bhubaneswar",
+    "state": "Odisha",
+    "points": [
+      {
+        "name": "Baramunda ISBT",
+        "code": "BRMD"
+      },
+      {
+        "name": "Kalpana Square",
+        "code": "KLPN"
+      },
+      {
+        "name": "Master Canteen",
+        "code": "MSTC"
+      },
+      {
+        "name": "Vani Vihar",
+        "code": "VNVR"
+      },
+      {
+        "name": "Palasuni",
+        "code": "PLSN"
+      }
+    ]
+  },
+  {
+    "name": "Kochi",
+    "code": "COK",
+    "city": "Kochi",
+    "state": "Kerala",
+    "points": [
+      {
+        "name": "Vyttila Mobility Hub",
+        "code": "VYTH"
+      },
+      {
+        "name": "Ernakulam KSRTC",
+        "code": "ERNA"
+      },
+      {
+        "name": "Kaloor",
+        "code": "KLOR"
+      },
+      {
+        "name": "Edappally",
+        "code": "EDPL"
+      },
+      {
+        "name": "Fort Kochi",
+        "code": "FTKC"
+      }
+    ]
+  },
+  {
+    "name": "Patna",
+    "code": "PAT",
+    "city": "Patna",
+    "state": "Bihar",
+    "points": [
+      {
+        "name": "Mithapur ISBT",
+        "code": "MTPR"
+      },
+      {
+        "name": "Gandhi Maidan",
+        "code": "GDMD"
+      },
+      {
+        "name": "Meethapur",
+        "code": "MTP"
+      },
+      {
+        "name": "Danapur",
+        "code": "DNPR"
+      },
+      {
+        "name": "Bailey Road",
+        "code": "BYLR"
+      }
+    ]
+  },
+  {
+    "name": "Agra",
+    "code": "AGR",
+    "city": "Agra",
+    "state": "Uttar Pradesh",
+    "points": [
+      {
+        "name": "Idgah Bus Stand",
+        "code": "IDGH"
+      },
+      {
+        "name": "ISBT Agra",
+        "code": "ISBTA"
+      },
+      {
+        "name": "Bhagwan Talkies",
+        "code": "BGTK"
+      },
+      {
+        "name": "Kamla Nagar",
+        "code": "KMLN"
+      },
+      {
+        "name": "Water Works",
+        "code": "WTWK"
+      }
+    ]
+  },
+  {
+    "name": "Visakhapatnam",
+    "code": "VTZ",
+    "city": "Visakhapatnam",
+    "state": "Andhra Pradesh",
+    "points": [
+      {
+        "name": "Dwaraka Bus Complex",
+        "code": "DWRC"
+      },
+      {
+        "name": "Maddilapalem",
+        "code": "MDLP"
+      },
+      {
+        "name": "Gajuwaka",
+        "code": "GJWK"
+      },
+      {
+        "name": "NAD Junction",
+        "code": "NADJ"
+      },
+      {
+        "name": "RTC Complex",
+        "code": "RTCC"
+      }
+    ]
+  },
+  {
+    "name": "Chandigarh",
+    "code": "IXC",
+    "city": "Chandigarh",
+    "state": "Chandigarh",
+    "points": [
+      {
+        "name": "Sector 17 ISBT",
+        "code": "S17B"
+      },
+      {
+        "name": "Sector 43 ISBT",
+        "code": "S43B"
+      },
+      {
+        "name": "PGI Bus Stop",
+        "code": "PGIB"
+      },
+      {
+        "name": "Sector 22 Market",
+        "code": "S22B"
+      },
+      {
+        "name": "Manimajra",
+        "code": "MNMJ"
+      }
+    ]
+  }
+]

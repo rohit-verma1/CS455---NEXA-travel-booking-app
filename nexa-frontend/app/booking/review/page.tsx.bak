@@ -1,0 +1,1225 @@
+"use client";
+
+
+
+import React, { useRef, useState, KeyboardEvent } from "react";
+
+import {
+  Check,
+  Plus,
+  X,
+  ChevronDown,
+  Plane,
+  Clock,
+  Calendar,
+  Users,
+  Shield,
+  Info,
+  Briefcase,
+  Luggage,
+  Lock,
+  Ticket,
+  Receipt,
+} from "lucide-react";
+
+
+
+// Types
+interface Offer {
+  id: string;
+  code: string;
+  discount: number;
+  description: string;
+}
+
+interface FieldRefs {
+  [key: string]: HTMLInputElement | HTMLSelectElement | null;
+}
+
+interface Traveller {
+  id: number;
+  saved: boolean;
+  linkedProfileId: string | null;
+  title: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface Profile {
+  id: string;
+  title: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface ContactDetails {
+  countryCode: string;
+  mobile: string;
+  email: string;
+}
+
+interface BillingAddress {
+  pincode: string;
+  address: string;
+  city: string;
+  state: string;
+}
+
+interface PageRefs {
+  travellers: React.RefObject<HTMLDivElement>;
+  contact: React.RefObject<HTMLDivElement>;
+  billing: React.RefObject<HTMLDivElement>;
+}
+
+
+
+// Constants
+const savedProfiles: Profile[] = [
+  { id: "p1", title: "Mr", firstName: "Karthik", lastName: "Kollamoram" },
+  { id: "p2", title: "Mr", firstName: "Arun", lastName: "Ramaswamy" },
+  { id: "p3", title: "Ms", firstName: "Meera", lastName: "Sharma" },
+];
+
+const indianStates = [
+  "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat",
+  "Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh",
+  "Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab",
+  "Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Delhi"
+];
+
+const offersList: Offer[] = [
+  { id: "none", code: "NONE", description: "No offer", discount: 0 },
+  { id: "sale", code: "SALE", description: "SALE - ₹330 Off", discount: 330 },
+  { id: "money", code: "MONEY", description: "MONEY - ₹401 ixigo money", discount: 401 },
+];
+
+}
+
+const FlightReviewPage = () => {
+
+  // Refsinterface FieldRefs {
+
+  const fieldRefs = useRef<FieldRefs>({});  [key: string]: HTMLInputElement | HTMLSelectElement | null;
+
+  const pageRefs: PageRefs = {}
+
+    travellers: useRef<HTMLDivElement>(null),
+
+    contact: useRef<HTMLDivElement>(null),interface Traveller {
+
+    billing: useRef<HTMLDivElement>(null),  id: number;
+
+  };  saved: boolean;
+
+  linkedProfileId: string | null;
+
+  // Traveller state  title: string;
+
+  const [travellers, setTravellers] = useState<Traveller[]>([  firstName: string;
+
+    { id: 1, saved: true, linkedProfileId: "p1", title: "Mr", firstName: "Karthik", lastName: "Kollamoram" },  lastName: string;
+
+    { id: 2, saved: true, linkedProfileId: "p2", title: "Mr", firstName: "Arun", lastName: "Ramaswamy" },}
+
+    { id: 3, saved: false, linkedProfileId: null, title: "", firstName: "", lastName: "" },
+
+  ]);interface Profile {
+
+  id: string;
+
+  const [selectedProfiles, setSelectedProfiles] = useState<Set<string>>(  title: string;
+
+    new Set(travellers.filter(t => t.linkedProfileId).map(t => t.linkedProfileId!))  firstName: string;
+
+  );  lastName: string;
+
+}
+
+  const [expanded, setExpanded] = useState<Set<number>>(
+
+    new Set(travellers.filter(t => !t.saved).map(t => t.id))const savedProfiles = [
+
+  );  { id: "p1", title: "Mr", firstName: "Karthik", lastName: "Kollamoram" },
+
+  { id: "p2", title: "Mr", firstName: "Arun", lastName: "Ramaswamy" },
+
+  // Contact details state  { id: "p3", title: "Ms", firstName: "Meera", lastName: "Sharma" },
+
+  const [contactDetails, setContactDetails] = useState<ContactDetails>({];
+
+    countryCode: "+91",
+
+    mobile: "6303811202",const indianStates = [
+
+    email: "",  "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat",
+
+  });  "Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh",
+
+  "Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab",
+
+  // Billing address state  "Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Delhi"
+
+  const [billingAddress, setBillingAddress] = useState<BillingAddress>({];
+
+    pincode: "502032",
+
+    address: "Hyderabad",const offersList = [
+
+    city: "Sangareddy",  { id: "none", label: "No offer", instantOff: 0 },
+
+    state: "Telangana",  { id: "sale", label: "SALE - ₹330 Off", instantOff: 330 },
+
+  });  { id: "money", label: "MONEY - ₹401 ixigo money", instantOff: 401 },
+
+];
+
+  // Other state
+
+  const [addGST, setAddGST] = useState(false);const FlightReviewPage = () => {
+
+  const [selectedCancellation, setSelectedCancellation] = useState<string>("free");  // State
+
+  const [selectedOffer, setSelectedOffer] = useState<string>(offersList[1].id);  const fieldRefs = useRef<FieldRefs>({});
+
+  const pageRefs = {
+
+  // Event handlers    travellers: useRef<HTMLDivElement>(null),
+
+  const updateTraveller = (id: number, field: keyof Traveller, value: string) => {    contact: useRef<HTMLDivElement>(null),
+
+    setTravellers(travellers.map(t => t.id === id ? { ...t, [field]: value } : t));    billing: useRef<HTMLDivElement>(null),
+
+  };  };
+
+
+
+  const toggleExpand = (id: number) => {  // Traveller state
+
+    const newExpanded = new Set(expanded);  const [travellers, setTravellers] = useState<Traveller[]>([
+
+    if (newExpanded.has(id)) {    { id: 1, saved: true, linkedProfileId: "p1", title: "Mr", firstName: "Karthik", lastName: "Kollamoram" },
+
+      newExpanded.delete(id);    { id: 2, saved: true, linkedProfileId: "p2", title: "Mr", firstName: "Arun", lastName: "Ramaswamy" },
+
+    } else {    { id: 3, saved: false, linkedProfileId: null, title: "", firstName: "", lastName: "" },
+
+      newExpanded.add(id);  ]);
+
+    }  
+
+    setExpanded(newExpanded);  const [selectedProfiles, setSelectedProfiles] = useState<Set<string>>(
+
+  };    new Set(travellers.filter(t => t.linkedProfileId).map(t => t.linkedProfileId!))
+
+  );
+
+  const handleToggleProfile = (profile: Profile) => {  
+
+    const newSelected = new Set(selectedProfiles);  const [expanded, setExpanded] = useState<Set<number>>(
+
+    if (newSelected.has(profile.id)) {    new Set(travellers.filter(t => !t.saved).map(t => t.id))
+
+      newSelected.delete(profile.id);  );
+
+    } else {  
+
+      newSelected.add(profile.id);  // Contact details state
+
+    }  const [contactDetails, setContactDetails] = useState<ContactDetails>({
+
+    setSelectedProfiles(newSelected);    countryCode: "+91",
+
+  };    mobile: "6303811202",
+
+    email: "",
+
+  const handleTravellerContinue = (id: number) => {  });
+
+    const currentTraveller = travellers.find(t => t.id === id);
+
+    if (!currentTraveller) return;  // Billing address state
+
+  const [billingAddress, setBillingAddress] = useState<BillingAddress>({
+
+    // Find the next unsaved traveller    pincode: "502032",
+
+    const nextTraveller = travellers.find(t => !t.saved && t.id !== id);    address: "Hyderabad",
+
+        city: "Sangareddy",
+
+    // Update current traveller as saved    state: "Telangana",
+
+    setTravellers(travellers.map(t =>   });
+
+      t.id === id ? { ...t, saved: true } : t
+
+    ));  // Other state
+
+  const [addGST, setAddGST] = useState(false);
+
+    // Close current, open next if exists  const [selectedCancellation, setSelectedCancellation] = useState<string>("free");
+
+    const newExpanded = new Set(expanded);  const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
+
+    newExpanded.delete(id);
+
+    if (nextTraveller) {  // Data
+
+      newExpanded.add(nextTraveller.id);  const offersData: Offer[] = [
+
+      // Scroll to next traveller smoothly    { id: 'sale', code: 'SALE', discount: 330, description: 'Enjoy an instant discount of ₹330 and receive a Hotel discount code after your booking.' },
+
+      const el = document.getElementById(`traveller-${nextTraveller.id}`);    { id: 'iphone', code: 'IPHONE17', discount: 0, description: 'Get a chance to win brand new iPhone 17 post this booking.' },
+
+      if (el) {    { id: 'money', code: 'MONEY', discount: 401, description: 'Get ₹401 ixigo money post this booking.' },
+
+        el.scrollIntoView({ behavior: "smooth", block: "center" });];
+
+      }
+
+    }  const [selectedProfiles, setSelectedProfiles] = useState(new Set(travellers.filter(t => t.linkedProfileId).map(t => t.linkedProfileId)));
+
+    setExpanded(newExpanded);  const [expanded, setExpanded] = useState(new Set(travellers.filter(t => !t.saved).map(t => t.id))); // open any non-saved initially
+
+  };  const [contactDetails, setContactDetails] = useState({
+
+    countryCode: "+91",
+
+  const handleKeyDown = (    mobile: "6303811202",
+
+    travellerId: number,    email: "",
+
+    fieldIndex: number,  });
+
+    e: KeyboardEvent<HTMLInputElement | HTMLSelectElement>  const [billingAddress, setBillingAddress] = useState({
+
+  ) => {    pincode: "502032",
+
+    if (e.key !== "Tab") return;    address: "Hyderabad",
+
+    city: "Sangareddy",
+
+    const currentKey = `t${travellerId}-f${fieldIndex}`;    state: "Telangana",
+
+    const nextKey = `t${travellerId}-f${fieldIndex + 1}`;  });
+
+    const prevKey = `t${travellerId}-f${fieldIndex - 1}`;  const [addGST, setAddGST] = useState(false);
+
+  const [selectedCancellation, setSelectedCancellation] = useState("free");
+
+    const nextEl = fieldRefs.current[nextKey];  const [selectedOffer, setSelectedOffer] = useState(offersList[1].id); // default SALE
+
+    const prevEl = fieldRefs.current[prevKey];  
+
+  const updateTraveller = (id: number, field: keyof Traveller, value: string) => {
+
+    if (!e.shiftKey && nextEl) {    setTravellers(travellers.map(t => t.id === id ? { ...t, [field]: value } : t));
+
+      e.preventDefault();  };
+
+      nextEl.focus();
+
+      if (nextEl instanceof HTMLInputElement) {  const toggleExpand = (id: number) => {
+
+        const len = nextEl.value.length;    const newExpanded = new Set(expanded);
+
+        nextEl.setSelectionRange(len, len);    if (newExpanded.has(id)) {
+
+      }      newExpanded.delete(id);
+
+    } else if (e.shiftKey && prevEl) {    } else {
+
+      e.preventDefault();      newExpanded.add(id);
+
+      prevEl.focus();    }
+
+    }    setExpanded(newExpanded);
+
+  };  };
+
+
+
+  const handleClearTraveller = (id: number) => {  const handleToggleProfile = (profile: Profile) => {
+
+    setTravellers(travellers.map(t =>     const newSelected = new Set(selectedProfiles);
+
+      t.id === id     if (newSelected.has(profile.id)) {
+
+        ? { ...t, title: "", firstName: "", lastName: "", saved: false, linkedProfileId: null }      newSelected.delete(profile.id);
+
+        : t    } else {
+
+    ));      newSelected.add(profile.id);
+
+  };    }
+
+    setSelectedProfiles(newSelected);
+
+  // Offers and pricing calculations  };
+
+  const currentOffer = offersList.find(o => o.id === selectedOffer) || offersList[0];
+
+  const baseFare = 7347;  const handleTravellerContinue = (id: number) => {
+
+  const taxesAndFees = 4950;    const currentTraveller = travellers.find(t => t.id === id);
+
+  const instantOff = currentOffer.instantOff;    if (!currentTraveller) return;
+
+  const totalAmount = baseFare + taxesAndFees - instantOff;
+
+  const originalAmount = baseFare + taxesAndFees;    // Find the next unsaved traveller
+
+    const nextTraveller = travellers.find(t => !t.saved && t.id !== id);
+
+  return (    
+
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">    // Update current traveller as saved
+
+      {/* Your existing JSX here */}    setTravellers(travellers.map(t => 
+
+    </div>      t.id === id ? { ...t, saved: true } : t
+
+  );    ));
+
+};
+
+    // Close current, open next if exists
+
+export default FlightReviewPage;    const newExpanded = new Set(expanded);
+    newExpanded.delete(id);
+    if (nextTraveller) {
+      newExpanded.add(nextTraveller.id);
+      // Scroll to next traveller smoothly
+      const el = document.getElementById(`traveller-${nextTraveller.id}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+    setExpanded(newExpanded);
+  };
+
+  const handleKeyDown = (
+    travellerId: number,
+    fieldIndex: number,
+    e: KeyboardEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    if (e.key !== "Tab") return;
+
+    const currentKey = `t${travellerId}-f${fieldIndex}`;
+    const nextKey = `t${travellerId}-f${fieldIndex + 1}`;
+    const prevKey = `t${travellerId}-f${fieldIndex - 1}`;
+
+    const nextEl = fieldRefs.current[nextKey];
+    const prevEl = fieldRefs.current[prevKey];
+
+    if (!e.shiftKey && nextEl) {
+      e.preventDefault();
+      nextEl.focus();
+      if (nextEl instanceof HTMLInputElement) {
+        const len = nextEl.value.length;
+        nextEl.setSelectionRange(len, len);
+      }
+    } else if (e.shiftKey && prevEl) {
+      e.preventDefault();
+      prevEl.focus();
+    }
+  };
+
+  const handleClearTraveller = (id: number) => {
+    setTravellers(travellers.map(t => 
+      t.id === id 
+        ? { ...t, title: "", firstName: "", lastName: "", saved: false, linkedProfileId: null }
+        : t
+    ));
+  };
+
+  const pageRefs = {
+    travellers: useRef(null),
+    contact: useRef(null),
+    billing: useRef(null),
+  };
+  const fieldRefs = useRef<{ [key: string]: HTMLInputElement | HTMLSelectElement | null }>({});
+
+  // helper: update a traveller field
+  const updateTraveller = (id, field, value) => {
+    setTravellers((prev) => prev.map((t) => (t.id === id ? { ...t, [field]: value } : t)));
+  };
+
+  // toggle expand/collapse of a traveller card
+  const toggleExpand = (id) => {
+    setExpanded((prev) => {
+      const copy = new Set(prev);
+      if (copy.has(id)) copy.delete(id);
+      else copy.add(id);
+      return copy;
+    });
+  };
+
+  // toggle selection of a saved profile chip
+  const handleToggleProfile = (profile) => {
+    const isSelected = selectedProfiles.has(profile.id);
+    if (isSelected) {
+      // deselect: find traveller linked to this profile and clear it
+      setTravellers((prev) =>
+        prev.map((t) =>
+          t.linkedProfileId === profile.id ? { ...t, saved: false, linkedProfileId: null, title: "", firstName: "", lastName: "" } : t
+        )
+      );
+      setSelectedProfiles((prev) => {
+        const copy = new Set(prev);
+        copy.delete(profile.id);
+        return copy;
+      });
+      // ensure that traveller card for that slot is expanded for edit (if user wants to add new)
+      return;
+    }
+
+    // selecting: find first un-saved traveller slot
+    const freeSlot = travellers.find((t) => !t.saved);
+    if (freeSlot) {
+      setTravellers((prev) =>
+        prev.map((t) =>
+          t.id === freeSlot.id
+            ? { ...t, saved: true, linkedProfileId: profile.id, title: profile.title, firstName: profile.firstName, lastName: profile.lastName }
+            : t
+        )
+      );
+      setSelectedProfiles((prev) => new Set(prev).add(profile.id));
+      // collapse that slot
+      setExpanded((prev) => {
+        const copy = new Set(prev);
+        copy.delete(freeSlot.id);
+        return copy;
+      });
+    } else {
+      // no free slot: optionally replace the last traveller (or show a toast). We'll replace the last unsaved/smallest index.
+      // We'll replace the last traveller (ID largest) for convenience:
+      const lastId = travellers[travellers.length - 1].id;
+      setTravellers((prev) =>
+        prev.map((t) =>
+          t.id === lastId
+            ? { ...t, saved: true, linkedProfileId: profile.id, title: profile.title, firstName: profile.firstName, lastName: profile.lastName }
+            : t
+        )
+      );
+      setSelectedProfiles((prev) => new Set(prev).add(profile.id));
+      setExpanded((prev) => {
+        const copy = new Set(prev);
+        copy.delete(lastId);
+        return copy;
+      });
+    }
+  };
+
+  // Continue pressed on traveller card => validate minimal fields, mark saved, collapse and open next
+  const handleTravellerContinue = (id) => {
+    const t = travellers.find((x) => x.id === id);
+    if (!t) return;
+    // minimal validation: title + firstName + lastName
+    if (!t.title || !t.firstName || !t.lastName) {
+      // in real app show precise validation UI; here a simple alert
+      alert("Please fill Title, First & Last name before continuing.");
+      setExpanded((prev) => new Set(prev).add(id));
+      return;
+    }
+
+    // mark saved
+    setTravellers((prev) => prev.map((x) => (x.id === id ? { ...x, saved: true } : x)));
+    // collapse this
+    setExpanded((prev) => {
+      const copy = new Set(prev);
+      copy.delete(id);
+      return copy;
+    });
+
+    // open next traveller or move to next section
+    const idx = travellers.findIndex((x) => x.id === id);
+    const next = travellers[idx + 1];
+    if (next) {
+      setExpanded((prev) => new Set(prev).add(next.id));
+      // scroll into view for that traveller card
+      setTimeout(() => {
+        const el = document.getElementById(`traveller-card-${next.id}`);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 120);
+    } else {
+      // last traveller: scroll to contact details
+      const el = pageRefs.contact.current;
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+
+    // on Enter, move to next field in same traveller or finish the traveller
+const handleKeyDown = (travellerId, fieldIndex, e) => {
+  if (e.key !== "Enter") return;
+  e.preventDefault();
+
+  const nextKey = `t${travellerId}-f${fieldIndex + 1}`;
+  const nextEl = fieldRefs.current[nextKey];
+
+  if (nextEl) {
+    nextEl.focus();
+    // place cursor at end (works for inputs)
+    try {
+      const len = nextEl.value?.length || 0;
+      nextEl.setSelectionRange && nextEl.setSelectionRange(len, len);
+    } catch {}
+    return;
+  }
+};
+
+// put this inside FlightReviewPage, near your other handlers (before return)
+const handleClearTraveller = (id) => {
+  // remove linked profile id from selectedProfiles set if present
+  setTravellers((prev) =>
+    prev.map((t) =>
+      t.id === id
+        ? { ...t, saved: false, linkedProfileId: null, title: "", firstName: "", lastName: "" }
+        : t
+    )
+  );
+
+  // also remove any profile selection that referenced this traveller
+  setSelectedProfiles((prev) => {
+    // prev is a Set; make a shallow copy and remove any profile that was assigned to this traveller
+    const copy = new Set(prev);
+    // find the profile id (if any) that was linked to this traveller BEFORE we cleared travellers
+    // NOTE: because setTravellers is async, we check the current travellers array synchronously
+    const t = travellers.find((x) => x.id === id);
+    if (t && t.linkedProfileId) copy.delete(t.linkedProfileId);
+    return copy;
+  });
+
+  // Open the card so the user can immediately add new details if they want
+  setExpanded((prev) => {
+    const copy = new Set(prev);
+    copy.add(id);
+    return copy;
+  });
+};
+
+  // offers -> calculate instant off
+  const currentOffer = offersList.find((o) => o.id === selectedOffer) || offersList[0];
+  const baseFare = 7347;
+  const taxesAndFees = 4950;
+  const instantOff = currentOffer.instantOff;
+  const totalAmount = baseFare + taxesAndFees - instantOff;
+  const originalAmount = baseFare + taxesAndFees;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-50 to-slate-100">
+      {/* Header */}
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-sky-600 rounded-lg flex items-center justify-center">
+                <Plane className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-slate-900">TravelPro</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center text-slate-500">N</div>
+              <span className="text-sm font-medium text-slate-700">Hey Traveller</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Progress Steps */}
+      <div className="bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between space-x-4">
+            {["Flight Selection", "Review & Traveller Details", "Add-ons", "Payment"].map((step, idx) => (
+              <div key={idx} className="flex-1 flex items-center">
+                <div className="flex items-center">
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm ${
+                      idx <= 1 ? "bg-sky-600 text-white" : "bg-slate-200 text-slate-500"
+                    }`}
+                  >
+                    {idx <= 1 ? <Check className="w-4 h-4" /> : idx + 1}
+                  </div>
+                  <span className={`ml-2 text-sm font-medium ${idx <= 1 ? "text-sky-600" : "text-slate-500"}`}>{step}</span>
+                </div>
+                {idx < 3 && <div className={`h-0.5 flex-1 mx-4 ${idx <= 0 ? "bg-sky-200" : "bg-slate-200"}`} />}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Page body */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* main column */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Flight Details: toned down header */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+              <div className="px-6 py-4 bg-gradient-to-r from-slate-800 to-slate-900">
+                <h2 className="text-xl font-bold text-white flex items-center">
+                  Lucknow → New Delhi
+                </h2>
+                <p className="text-blue-100 text-sm mt-1">Mon, 27 Oct • Non-stop • 1h 30m • Economy</p>
+              </div>
+
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-200 to-orange-300 rounded-xl flex items-center justify-center">
+                      <Plane className="w-6 h-6 text-orange-700" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">Air India Express</p>
+                      <p className="text-sm text-slate-500">IX 1618</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <p className="text-3xl font-bold text-slate-900">19:30</p>
+                    <p className="text-sm font-medium text-slate-600 mt-1">LKO - Lucknow</p>
+                    <p className="text-xs text-slate-500">Chaudhary Charan Singh Airport</p>
+                    <p className="text-xs text-slate-500">Terminal 3</p>
+                  </div>
+
+                  <div className="flex-1 flex flex-col items-center px-4">
+                    <Clock className="w-4 h-4 text-slate-400 mb-1" />
+                    <p className="text-sm text-slate-500">1h 30m</p>
+                    <div className="w-full h-0.5 bg-gradient-to-r from-slate-300 via-blue-500 to-slate-300 my-2" />
+                    <p className="text-xs text-emerald-600 font-medium">Non-stop</p>
+                  </div>
+
+                  <div className="flex-1 text-right">
+                    <p className="text-3xl font-bold text-slate-900">21:00</p>
+                    <p className="text-sm font-medium text-slate-600 mt-1">DEL - New Delhi</p>
+                    <p className="text-xs text-slate-500">Indira Gandhi Airport</p>
+                    <p className="text-xs text-slate-500">Terminal 1</p>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-slate-200 flex items-center justify-between text-sm">
+                  <div className="flex items-center text-slate-600">
+                    <Luggage className="w-4 h-4 mr-2" />
+                    <span>Cabin: 7 kg per adult</span>
+                  </div>
+                  <div className="flex items-center text-slate-600">
+                    <Briefcase className="w-4 h-4 mr-2" />
+                    <span>Check-in: 15 kg per piece, 1 piece per adult</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Cancellation options */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+              <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                <h3 className="text-lg font-bold text-slate-900 flex items-center">
+                  <Shield className="w-5 h-5 mr-2 text-slate-700" />
+                   Refund On Cancellation
+                </h3>
+                <span className="text-xs text-emerald-600 font-semibold px-2 py-1 bg-emerald-50 rounded-full">Trusted by travellers</span>
+              </div>
+
+              <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div
+                    onClick={() => setSelectedCancellation("free")}
+                    className={`relative p-5 rounded-xl border-2 cursor-pointer transition-all ${
+                      selectedCancellation === "free" ? "border-sky-400 bg-sky-50 shadow-md" : "border-slate-200 hover:border-slate-300 hover:shadow"
+                    }`}
+                  >
+                    {selectedCancellation === "free" && (
+                      <div className="absolute top-3 right-3 w-6 h-6 bg-sky-600 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                    )}
+                    <div className="flex items-center space-x-2 mb-3">
+                      <Shield className="w-5 h-5 text-sky-600" />
+                      <span className="font-bold text-slate-900">Free Cancellation</span>
+                      <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-semibold">Most Popular</span>
+                    </div>
+                    <p className="text-2xl font-bold text-slate-900 mb-1">₹819<span className="text-sm text-slate-500">/traveller</span></p>
+                    <ul className="space-y-2 text-sm text-slate-600 mt-4">
+                      <li className="flex items-start">
+                        <Check className="w-4 h-4 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Instant refund of ₹3,769</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-4 h-4 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Cancel up to 24hrs before departure</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-4 h-4 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+                        <span>No-questions-asked refund</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-4 h-4 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+                        <span>24x7 priority customer service</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div
+                    onClick={() => setSelectedCancellation("flex")}
+                    className={`relative p-5 rounded-xl border-2 cursor-pointer transition-all ${
+                      selectedCancellation === "flex" ? "border-sky-400 bg-sky-50 shadow-md" : "border-slate-200 hover:border-slate-300 hover:shadow"
+                    }`}
+                  >
+                    {selectedCancellation === "flex" && (
+                      <div className="absolute top-3 right-3 w-6 h-6 bg-sky-600 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                    )}
+                    <div className="flex items-center space-x-2 mb-3">
+                      <Shield className="w-5 h-5 text-emerald-600" />
+                      <span className="font-bold text-slate-900">Free Cancellation + Rescheduling</span>
+                    </div>
+                    <p className="text-2xl font-bold text-slate-900 mb-1">₹1,119<span className="text-sm text-slate-500">/traveller</span></p>
+                    <ul className="space-y-2 text-sm text-slate-600 mt-4">
+                      <li className="flex items-start">
+                        <Check className="w-4 h-4 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Instant refund of ₹3,769</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-4 h-4 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Change date, airline & even sector for free up to 24hrs before</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-4 p-4 bg-slate-50 rounded-lg flex items-start">
+                  <input
+                    type="checkbox"
+                    checked={selectedCancellation === "none"}
+                    onChange={() => setSelectedCancellation("none")}
+                    className="mt-1"
+                  />
+                  <label className="ml-3 text-sm text-slate-600">
+                    I don't want Free Cancellation. Pay <span className="font-semibold">₹4,300</span> fee if you cancel or reschedule
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Traveller Details */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden" ref={pageRefs.travellers}>
+              <div className="px-6 py-4 border-b border-slate-200">
+                <h3 className="text-lg font-bold text-slate-900 flex items-center">
+                  <Users className="w-5 h-5 mr-2 text-slate-700" />
+                  Traveller Details
+                </h3>
+                <p className="text-sm text-slate-500 mt-1">Choose from saved profiles or add new passengers</p>
+              </div>
+
+              <div className="p-6 space-y-4">
+                <div className="mb-2 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start">
+                  <Info className="w-5 h-5 text-amber-600 mr-3 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-amber-800">
+                    Please ensure your name matches your govt. ID (Aadhaar, Passport or Driver's License).
+                  </p>
+                </div>
+
+                {/* Saved profiles chips */}
+                <div>
+                  <p className="text-sm font-semibold text-slate-700 mb-3">Saved Profiles</p>
+                  <div className="flex flex-wrap gap-3 mb-4">
+                    {savedProfiles.map((p) => {
+                      const isSel = selectedProfiles.has(p.id);
+                      return (
+                        <button
+                          key={p.id}
+                          onClick={() => handleToggleProfile(p)}
+                          className={`px-4 py-2 rounded-lg border-2 text-sm font-medium flex items-center space-x-2 transition ${
+                            isSel
+                              ? "border-sky-500 bg-sky-50 text-sky-700"
+                              : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                          }`}
+                        >
+                          {isSel ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                          <span>{p.title} {p.firstName} {p.lastName}</span>
+                        </button>
+                      );
+                    })}
+                    <button
+                      onClick={() => {
+                        // open last traveller card for adding new quickly
+                        const last = travellers[travellers.length - 1].id;
+                        setExpanded((prev) => new Set(prev).add(last));
+                        const el = document.getElementById(`traveller-card-${last}`);
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+                      }}
+                      className="px-4 py-2 rounded-lg border-2 border-slate-300 bg-white text-slate-600 font-medium text-sm hover:border-slate-400 transition-colors"
+                    >
+                      + Add New
+                    </button>
+                  </div>
+                </div>
+
+                {/* Traveller cards */}
+                <div className="space-y-4">
+                {travellers.map((traveller, idx) => {
+                    const isOpen = expanded.has(traveller.id);
+
+                    return (
+                    <div
+                        id={`traveller-card-${traveller.id}`}
+                        key={traveller.id}
+                        className={`p-5 bg-slate-50 rounded-xl border border-slate-200 ${isOpen ? "ring-2 ring-sky-100" : ""}`}
+                    >
+                        <div
+                        // clicking header toggles open (but clicking the Clear button below won't toggle)
+                        onClick={(e) => {
+                            // avoid toggling when Clear is clicked
+                            if (e.target.closest("[data-clear-btn]")) return;
+                            setExpanded((prev) => {
+                            const copy = new Set(prev);
+                            if (copy.has(traveller.id)) copy.delete(traveller.id);
+                            else copy.add(traveller.id);
+                            return copy;
+                            });
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => { if (e.key === "Enter") { setExpanded(p=> { const c=new Set(p); c.add(traveller.id); return c; }); } }}
+                        className="flex items-center justify-between mb-4 cursor-pointer"
+                        >
+                        <h4 className="font-semibold text-slate-900 flex items-center space-x-3">
+                            <span className="text-sm text-slate-500">Adult {idx + 1}</span>
+                            {traveller.saved && <span className="text-sm text-emerald-600">✓ {traveller.firstName} {traveller.lastName}</span>}
+                        </h4>
+
+                        <div className="flex items-center space-x-3">
+                            {/* Clear always visible */}
+                            <button
+                            data-clear-btn
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleClearTraveller(traveller.id);
+                            }}
+                            className="text-sm text-slate-600 hover:text-slate-800"
+                            title="Clear this traveller's details"
+                            >
+                            Clear
+                            </button>
+
+                            {/* show small hint when collapsed */}
+                            {!isOpen ? (
+                            <span className="text-sm px-3 py-1 bg-white border border-slate-200 rounded-md text-slate-600">Edit</span>
+                            ) : (
+                            <span className="text-sm px-3 py-1 bg-white border border-slate-200 rounded-md text-slate-600">Open</span>
+                            )}
+                        </div>
+                        </div>
+
+                        {/* expanded form */}
+                        {isOpen && (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Title (fieldIndex 0) */}
+                            <div className="relative">
+                            <label className="block text-xs font-medium text-slate-600 mb-1">Title</label>
+                            <select
+                                ref={(el) => (fieldRefs.current[`t${traveller.id}-f0`] = el)}
+                                value={traveller.title}
+                                onChange={(e) => updateTraveller(traveller.id, "title", e.target.value)}
+                                onKeyDown={(e) => handleKeyDown(traveller.id, 0, e)}
+                                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 appearance-none text-slate-900 font-medium"
+                            >
+                                <option value="">Select</option>
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Ms">Ms</option>
+                            </select>
+                            <ChevronDown className="absolute right-3 top-9 w-4 h-4 text-slate-400 pointer-events-none" />
+                            </div>
+
+                            {/* First (fieldIndex 1) */}
+                            <div>
+                            <label className="block text-xs font-medium text-slate-600 mb-1">First & Middle Name</label>
+                            <input
+                                ref={(el) => (fieldRefs.current[`t${traveller.id}-f1`] = el)}
+                                type="text"
+                                value={traveller.firstName}
+                                onChange={(e) => updateTraveller(traveller.id, "firstName", e.target.value)}
+                                onKeyDown={(e) => handleKeyDown(traveller.id, 1, e)}
+                                placeholder="Enter name"
+                                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 text-slate-900"
+                            />
+                            </div>
+
+                            {/* Last (fieldIndex 2) */}
+                            <div>
+                            <label className="block text-xs font-medium text-slate-600 mb-1">Last Name</label>
+                            <input
+                                ref={(el) => (fieldRefs.current[`t${traveller.id}-f2`] = el)}
+                                type="text"
+                                value={traveller.lastName}
+                                onChange={(e) => updateTraveller(traveller.id, "lastName", e.target.value)}
+                                onKeyDown={(e) => handleKeyDown(traveller.id, 2, e)}
+                                placeholder="Enter surname"
+                                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 text-slate-900"
+                            />
+                            </div>
+
+                            {/* Nationality (fieldIndex 3) */}
+                            <div className="relative">
+                            <label className="block text-xs font-medium text-slate-600 mb-1">Nationality</label>
+                            <select
+                                ref={(el) => (fieldRefs.current[`t${traveller.id}-f3`] = el)}
+                                value={"India"}
+                                onChange={() => {}}
+                                onKeyDown={(e) => handleKeyDown(traveller.id, 3, e)}
+                                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 appearance-none text-slate-900 font-medium"
+                            >
+                                <option>India</option>
+                            </select>
+                            <ChevronDown className="absolute right-3 top-9 w-4 h-4 text-slate-400 pointer-events-none" />
+                            </div>
+                        </div>
+                        )}
+                    </div>
+                    );
+                })}
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Details */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden" ref={pageRefs.contact}>
+              <div className="px-6 py-4 border-b border-slate-200">
+                <h3 className="text-lg font-bold text-slate-900 flex items-center">
+                  <Lock className="w-5 h-5 mr-2 text-slate-700" />
+                  Contact Details
+                </h3>
+                <p className="text-sm text-slate-500 mt-1">Your ticket & flight information will be sent here</p>
+              </div>
+
+              <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="relative">
+                    <label className="block text-xs font-medium text-slate-600 mb-1">Country Code</label>
+                    <select
+                      value={contactDetails.countryCode}
+                      onChange={(e) => setContactDetails({ ...contactDetails, countryCode: e.target.value })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-transparent appearance-none text-slate-900 font-medium"
+                    >
+                      <option value="+91">India (+91)</option>
+                      <option value="+1">USA (+1)</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-9 w-4 h-4 text-slate-400 pointer-events-none" />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">Mobile Number</label>
+                    <input
+                      type="tel"
+                      value={contactDetails.mobile}
+                      onChange={(e) => setContactDetails({ ...contactDetails, mobile: e.target.value })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-transparent text-slate-900"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-xs font-medium text-slate-600 mb-1">Email</label>
+                    <input
+                      type="email"
+                      value={contactDetails.email}
+                      onChange={(e) => setContactDetails({ ...contactDetails, email: e.target.value })}
+                      placeholder="your@email.com"
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-transparent text-slate-900"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* GST */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+              <div className="px-6 py-4 border-b border-slate-200">
+                <h3 className="text-lg font-bold text-slate-900 flex items-center">
+                  <Info className="w-5 h-5 mr-2 text-slate-700" />
+                  GST Details
+                </h3>
+                <p className="text-sm text-slate-500 mt-1">To claim GST credit, enter GST details</p>
+              </div>
+
+              <div className="p-6">
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={addGST}
+                    onChange={(e) => setAddGST(e.target.checked)}
+                    className="w-5 h-5 rounded border-slate-300 text-sky-600 focus:ring-sky-400"
+                  />
+                  <span className="ml-3 text-sm font-medium text-slate-700">I would like to add my GST Number</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Billing address with State dropdown */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden" ref={pageRefs.billing}>
+              <div className="px-6 py-4 border-b border-slate-200">
+                <h3 className="text-lg font-bold text-slate-900 flex items-center">
+                  <Briefcase className="w-5 h-5 mr-2 text-slate-700" />
+                  Billing Address
+                </h3>
+                <p className="text-sm text-slate-500 mt-1">Provide your billing address (mandatory)</p>
+              </div>
+
+              <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">Pincode</label>
+                    <input
+                      type="text"
+                      value={billingAddress.pincode}
+                      onChange={(e) => setBillingAddress({ ...billingAddress, pincode: e.target.value })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-transparent text-slate-900"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">Address</label>
+                    <input
+                      type="text"
+                      value={billingAddress.address}
+                      onChange={(e) => setBillingAddress({ ...billingAddress, address: e.target.value })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-transparent text-slate-900"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">City</label>
+                    <input
+                      type="text"
+                      value={billingAddress.city}
+                      onChange={(e) => setBillingAddress({ ...billingAddress, city: e.target.value })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-transparent text-slate-900"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">State</label>
+                    <select
+                      value={billingAddress.state}
+                      onChange={(e) => setBillingAddress({ ...billingAddress, state: e.target.value })}
+                      className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-transparent appearance-none text-slate-900 font-medium"
+                    >
+                      <option value="">Select State</option>
+                      {indianStates.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-3 top-9 w-4 h-4 text-slate-400 pointer-events-none" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* sidebar */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-24 space-y-6">
+              {/* Offers card */}
+                {/* Offers Card */}
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div className="p-6">
+                        <h3 className="text-lg font-bold text-slate-900 flex items-center mb-4">
+                            <Ticket className="w-5 h-5 mr-3 text-black-600"/>
+                            Offers For You
+                        </h3>
+                        <div className="relative mb-4">
+                            <input type="text" placeholder="Have a promocode?" className="w-full px-4 py-3 pr-24 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                            <button className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 text-sm font-semibold text-blue-600 hover:text-blue-700">Redeem</button>
+                        </div>
+                        <div className="space-y-3">
+                            {offersData.map(offer => (
+                                <div key={offer.id} className="flex items-start cursor-pointer" onClick={() => setSelectedOffer(offer)}>
+                                    <input type="radio" name="offer" checked={selectedOffer.id === offer.id} readOnly className="mt-1" />
+                                    <div className="ml-3">
+                                        <p className="font-semibold text-slate-800 flex items-center">{offer.code} <span className="ml-2 px-2 py-0.5 text-xs bg-emerald-100 text-emerald-700 rounded-md">Save ₹{offer.discount}</span></p>
+                                        <p className="text-xs text-slate-500">{offer.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+              
+              <div className="mt-6 bg-gradient-to-r from-amber-400 to-orange-500 rounded-2xl p-4 shadow-lg">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                    <Clock className="w-5 h-5 text-orange-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-white font-bold text-sm">Lock Price @ ₹329</p>
+                    <p className="text-amber-100 text-xs">Hold this fare for 24 hours</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Fare Summary */}
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                <div className="px-6 py-4 bg-gradient-to-r from-slate-50 to-slate-100">
+                  <h3 className="text-lg font-semibold text-slate-900 flex items-center">
+                        <Receipt className="w-5 h-5 mr-3 text-black-600"/>
+                        Fare Summary
+                    </h3>
+                  <p className="text-slate-500 text-sm ml-8">3 Travellers</p>
+                </div>
+
+                <div className="p-6 space-y-4">
+                  <div className="flex justify-between items-center"><span className="text-slate-600">Fare Type</span><span className="font-semibold text-emerald-600">Partially Refundable</span></div>
+                  <div className="flex justify-between items-center"><span className="text-slate-600">Base Fare</span><span className="font-semibold text-slate-900">₹{baseFare.toLocaleString('en-IN')}</span></div>
+                  <div className="flex justify-between items-center"><span className="text-slate-600">Taxes & Fees</span><span className="font-semibold text-slate-900">₹{taxesAndFees.toLocaleString('en-IN')}</span></div>
+                  <div className="flex justify-between items-center text-emerald-600"><span className="font-medium">Instant Off</span><span className="font-semibold">-₹{instantOff.toLocaleString('en-IN')}</span></div>
+                  
+                  <div className="pt-4 border-t-2 border-slate-200">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-bold text-slate-900">Total Amount</span>
+                      <span className="text-2xl font-bold text-slate-900">₹{totalAmount.toLocaleString('en-IN')}</span>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1 line-through text-right">₹{originalAmount.toLocaleString('en-IN')}</p>
+                  </div>
+
+                  <div className="-mt-3 relative z-10">
+                    <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]">
+                      Continue
+                    </button>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-200">
+                    <div className="flex items-start space-x-2">
+                      <Shield className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900">100% Safe Payment Process</p>
+                        <div className="flex items-center space-x-2 mt-2">
+                          <div className="px-2 py-1 bg-slate-100 rounded text-xs font-medium text-slate-600">UPI</div>
+                          <div className="px-2 py-1 bg-slate-100 rounded text-xs font-medium text-slate-600">Credit Card</div>
+                          <div className="px-2 py-1 bg-slate-100 rounded text-xs font-medium text-slate-600">Net Banking</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-4">
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      By clicking on continue, I confirm that I have read, understood, and agree with the{' '}
+                      <a href="#" className="text-blue-600 hover:underline">Fare Rules</a>,{' '}
+                      <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a> and{' '}
+                      <a href="#" className="text-blue-600 hover:underline">Terms of Use</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div> {/* end sidebar */}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FlightReviewPage;

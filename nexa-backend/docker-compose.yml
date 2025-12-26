@@ -1,0 +1,39 @@
+services:
+  web:
+    build: .
+    container_name: django_uv_app
+    command: uv run uvicorn backend.asgi:application --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    env_file:
+      - .env
+
+  celery:
+    build: .
+    container_name: celery_worker
+    command: uv run celery -A backend worker --loglevel=info
+    depends_on:
+      - redis
+    env_file:
+      - .env
+
+  celery-beat:
+    build: .
+    container_name: celery_beat
+    command: uv run celery -A backend beat --loglevel=info
+    depends_on:
+      - redis
+      - celery
+    env_file:
+      - .env
+    restart: always
+
+  redis:
+    image: redis:7
+    container_name: redis_server
+    ports:
+      - "6379:6379"

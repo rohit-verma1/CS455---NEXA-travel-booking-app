@@ -1,0 +1,278 @@
+%!TEX program = lualatex
+\documentclass[11pt]{article}
+\usepackage[a4paper, margin=1in, includehead]{geometry}
+\geometry{a4paper} 
+\usepackage[table, svgnames, dvipsnames]{xcolor}
+\usepackage{makecell, cellspace, caption}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{graphicx} 
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{tabularray}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhfoffset[L]{1cm} % left extra length
+\fancyhfoffset[R]{1cm} % right extra length
+\rhead{\textbf{\textit{Page-\thepage}}}
+\lhead{\textbf{\textit{Software Design Document for Nexa}}}
+\cfoot{}
+\usepackage{amsmath,amssymb}  
+\usepackage{bm}  
+\usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}  
+\hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=blue} % black links, for printed output
+\usepackage{memhfixc} 
+\usepackage{pdfsync}  
+\usepackage{fancyhdr}
+\usepackage{lmodern}
+\usepackage{wrapfig}
+\usepackage[page,toc,titletoc,title]{appendix}
+\usepackage{array}
+
+\usepackage{fontspec}
+\setmainfont{Arial}
+
+\pagestyle{fancy}
+
+\usepackage{titlesec}
+\begin{document}
+\begin{titlingpage}
+\begin{flushright}
+    \rule{16cm}{5pt}\vskip1cm
+    \textbf{{\fontsize{30}{36}\selectfont Design Document} \\\vspace{1cm}\huge{for}\\\vspace{1cm}\Huge{Nexa}\\ \vspace{1.5cm}\LARGE{Version 1.0}\\\vspace{1cm}\LARGE{Prepared by}}
+\end{flushright}
+\vspace{1.0cm}
+\large{\begin{tabular*}{\columnwidth}{@{\extracolsep{\stretch{1}}}*{3}{c}@{}}
+    \Large{\textbf{Group Members}} & & \Large{\textbf{Group Name: Arcade Nation}} \\
+    \\
+    \textbf{Likith Sai Jonna} & \textbf{220483} & \href{mailto:jonnals22@iitk.ac.in}{jonnals22@iitk.ac.in} \\ 
+    \textbf{Rohit Verma} & \textbf{220917} & \href{mailto:rohitverma22@iitk.ac.in}{rohitverma22@iitk.ac.in} \\
+    \textbf{Kollamoram Karthik } & \textbf{220538} & \href{mailto:kkarthik22@iitk.ac.in}{kkarthik22@iitk.ac.in} \\
+    \textbf{K S U Rithwin} & \textbf{220537} & \href{mailto:ksupendra22@iitk.ac.in}{ksupendra22@iitk.ac.in} \\
+    \textbf{Ritesh Hans } & \textbf{220893} & \href{mailto:riteshhans22@iitk.ac.in}{riteshhans22@iitk.ac.in} \\
+    \textbf{Gottupulla Venkata Aman } & \textbf{220413} & \href{mailto:gvaman22@iitk.ac.in}{gvaman22@iitk.ac.in} \\
+    
+\end{tabular*}}
+
+\vspace{1.5cm}
+\begin{center}
+\large{
+\begin{tabular}{l l}
+    \textbf{Course:} & \textbf{CS455} \\
+    \textbf{Institute:} & \textbf{IIT Kanpur} \\
+    \textbf{Instructor:} & \textbf{Prof. Priyanka Bagade} \\
+    \textbf{Date:} & \textbf{September 4, 2025}
+\end{tabular}
+}
+\end{center}
+\end{titlingpage}
+
+\titleformat{name=\section}[block]
+  {\sffamily\LARGE}
+  {}
+  {0pt}
+  {\colorsectionx}
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
+\newcommand{\colorsectionx}[1]{\colorbox{gray!120}{\parbox{\dimexpr\textwidth-2\fboxsep}{\color{white} \centering \huge{\textbf{Contents}}}}}
+\vspace{-1cm}
+\tableofcontents
+
+\newpage
+\titleformat{name=\section}[block]
+  {\sffamily\LARGE}
+  {}
+  {0pt}
+  {\colorsection}
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
+
+\newcommand{\colorsection}[1]{\colorbox{gray!120}{\parbox{\dimexpr\textwidth-2\fboxsep}{\color{white}\huge{\textbf\thesection. }\ #1}}}
+
+\section{\centering{\textbf{Revisions}}}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    \rowcolor{Gainsboro!60}
+    \textbf{Version} & \textbf{Primary Author(s)} & \textbf{Description of Version} & \textbf{Date Completed} \\
+    \hline
+    \makecell{v1.0} & 
+\makecell{
+Likith Sai Jonna \\ 
+Rohit Verma \\ 
+Kollamoram Karthik \\ 
+K S U Rithwin \\ 
+Ritesh Hans\\ 
+Gottupulla Venkata Aman
+} & 
+\makecell{First version of the Software \\ Design Document} & 
+\makecell{04/09/2025}\\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+\section{\centering{\textbf{Architecture Design}}}
+
+The overall architecture of our web application, Nexa, follows the Model-View-Controller (MVC) model. Given the complexity of the application, each functionality is subdivided into smaller tasks, which are achieved by leveraging the MVC architecture to ensure modularity, scalability, and maintainability.
+
+The Model-View-Controller architecture is structured as follows:
+
+\begin{itemize}
+    \item \textbf{Model}: The model serves as the data-centric component of the application, acting as the sole component directly interfacing with the database. Its primary role entails storing and retrieving data related to user profiles, bookings, service provider schedules, payments, and analytics. We plan to use PostgreSQL as our database, with Django as the backend framework to interact with the database efficiently.
+    
+    \item \textbf{View}: The view acts as the presentation component of the application, responsible for rendering data to the user and handling user input. For customers and service providers, the view will be a responsive web application built using Ext.js ensuring a seamless and adaptive user interface across desktops, tablets, and smartphones. Administrators will access a dedicated web interface with enhanced controls for managing providers, bookings, and analytics.
+    
+    \item \textbf{Controller}: The controller serves as the logic hub of the application, tasked with processing data and determining the application’s flow. It will be developed using ext.js with django to handle business logic, API integrations, and request routing. The integration of external APIs, such as Google Maps API for route visualization and real-time tracking, and a dummy payment gateway (e.g., Stripe sandbox) for payment simulations, will be managed here. AI-based features, such as recommendation systems and chatbots, will also be integrated through the controller.
+\end{itemize}
+
+We have opted for the Model-View-Controller (MVC) model because it effectively accommodates the diverse data interaction needs of Nexa. This model supports various operations, such as searching for travel options, managing bookings, handling dynamic pricing, and providing administrative oversight. The MVC architecture also facilitates future enhancements, such as adding multilingual support or integrating additional transportation modes, making it the best fit for our scalable and user-centric platform.
+\begin{center}
+  \includegraphics[height=14cm]{arch-overview.jpg}
+\end{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=7cm]{processflow.jpg}
+\end{figure}
+
+
+\newpage
+\section{\centering{\textbf{Object Oriented Design}}}
+\subsection{Use Case Diagrams}
+
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.8pt,arc=3pt,auto outer arc,
+                  left=4pt,right=4pt,top=2pt,bottom=2pt]  % padding controls
+\textbf{User Role : Customer}
+\end{tcolorbox}
+\subsubsection{Use Case 1 - Registration \& Profile Management}
+\begin{center}
+  \includegraphics[height=8cm]{use case diagrams/C_UC1.png}
+\end{center}
+
+\subsubsection{Use Case 2 - Travel Search, Booking \& Ticketing}
+\begin{center}
+  \includegraphics[height=9cm]{use case diagrams/C_UC2.png}
+\end{center}
+
+\subsubsection{Use Case 3 - Booking Management and Travel Support}
+\begin{center}
+  \includegraphics[height=10cm]{use case diagrams/C_UC3.png}
+\end{center}
+
+\subsubsection{Use Case 4 -  Payment and Loyalty Management}
+\begin{center}
+  \includegraphics[width=16cm]{use case diagrams/C_UC4.png}
+\end{center}
+\newpage
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.8pt,arc=3pt,auto outer arc,
+                  left=4pt,right=4pt,top=2pt,bottom=2pt]  % padding controls
+\textbf{User Role : Admin}
+\end{tcolorbox}
+\subsubsection{Use Case 5 - Admin Login \& Security}
+\begin{center}
+  \includegraphics[width=14cm]{use case diagrams/A_UC1.png}
+\end{center}
+
+\subsubsection{Use Case 6 - User \& Provider Management}
+\begin{center}
+  \includegraphics[height=10cm]{use case diagrams/A_UC2.png}
+\end{center}
+
+\subsubsection{Use Case 7 - Data \& Reports}
+\begin{center}
+  \includegraphics[height=12cm]{use case diagrams/A_UC3.png}
+\end{center}
+
+\subsubsection{Use Case 8 - Monitoring \& Communication}
+\begin{center}
+  \includegraphics[width=16cm]{use case diagrams/A_UC4.png}
+\end{center}
+\newpage
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.8pt,arc=3pt,auto outer arc,
+                  left=4pt,right=4pt,top=2pt,bottom=2pt]  % padding controls
+\textbf{User Role : Travel Service Provider}
+\end{tcolorbox}
+\subsubsection{Use Case 9 - Registration \& Profile Management}
+\begin{center}
+  \includegraphics[height=8cm]{use case diagrams/P_UC1.png}
+\end{center}
+
+\subsubsection{Use Case 10 - Service Management}
+\begin{center}
+  \includegraphics[height=10cm]{use case diagrams/P_UC2.png}
+\end{center}
+
+\subsubsection{Use Case 11 - Analytics \& Reports}
+\begin{center}
+  \includegraphics[width=17cm]{use case diagrams/P_UC3.png}
+\end{center}
+
+\subsubsection{Use Case 12 - Bookings \& Financials}
+\begin{center}
+  \includegraphics[height=12cm]{use case diagrams/P_UC4.png}
+\end{center}
+\newpage
+\subsection{Class Diagrams}
+\begin{center}
+  \includegraphics[scale=0.12]{SDD diagrams/main.png}\\
+  \textbf{Class Schema Overview of Nexa}
+\end{center}
+This is an overview of all the schema in the DB.
+\subsubsection {Authentication Schema}
+\begin{center}
+  \includegraphics[scale=0.12]{SDD diagrams/auth.png}\\
+  \textbf{Authentication Schema Interactions}
+\end{center}
+\subsubsection {User's Schema}
+\begin{center}
+  \includegraphics[scale=0.12]{SDD diagrams/user.png}\\
+  \textbf{User Schema Interactions}
+\end{center}
+\subsubsection {Services's Schema}
+\begin{center}
+  \includegraphics[scale=0.12]{SDD diagrams/service.png}\\
+  \textbf{Services Schema Interactions}
+\end{center}
+\subsubsection {Booking's Schema}
+\begin{center}
+  \includegraphics[scale=0.12]{SDD diagrams/booking.png}\\
+  \textbf{Booking Schema Interactions}
+\end{center}
+\subsubsection {Payment's Schema}
+\begin{center}
+  \includegraphics[scale=0.12]{SDD diagrams/payment.png}\\
+  \textbf{Payment Schema Interactions}
+\end{center}
+\subsubsection {Notification Schema}
+\begin{center}
+  \includegraphics[scale=0.12]{SDD diagrams/notification.png}\\
+  \textbf{Notification Schema Interactions}
+\end{center}
+\subsubsection {AI Content Schema}
+\begin{center}
+  \includegraphics[scale=0.12]{SDD diagrams/content.png}\\
+  \textbf{AI Content Schema Interactions}
+\end{center}
+\subsubsection {Forum's Schema}
+\begin{center}
+  \includegraphics[scale=0.12]{SDD diagrams/forums.png}\\
+  \textbf{Forum's Schema Interactions}
+\end{center}
+
+\input{3_3}
+
+\subsection{State Diagrams}
+\subsubsection{Overall state diagram}
+\vspace{1cm}
+\begin{center}
+  \includegraphics[scale=0.105]{high-sd.png}
+\end{center}
+\vspace{1cm}
+The image describes the high-level state diagram of the application from a user perspective. The customer can either be a subscribed customer or an unsubscribed customer. 
+\subsubsection{Booking Sequence to Avoid Double Booking}
+\begin{center}
+  \includegraphics[scale=0.15]{booking-sd.png}
+\end{center}
+\newpage
+\end{document}

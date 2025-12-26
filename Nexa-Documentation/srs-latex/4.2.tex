@@ -1,0 +1,174 @@
+\subsection{Functional Requirements}
+\vspace{2pt}
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.8pt,arc=3pt,auto outer arc,
+                  left=4pt,right=4pt,top=2pt,bottom=2pt]  % padding controls
+\textbf{User Role : Customer}
+\end{tcolorbox}
+
+\subsubsection{Authentication \& Profile}
+\begin{itemize}
+    \item FR-C1: Customer shall be able to register (email, phone, or social login).
+    \item FR-C2: Customer shall be able to log in/out, reset passwords, and manage profile (CRUD).
+\end{itemize}
+
+\subsubsection{Service Discovery \& Search}
+\begin{itemize}
+    \item FR-C3: Customer shall be able to search for services by route, date, time, or category (bus, train, flight).
+    \item FR-C4: Customer shall be able to filter (price, rating, duration, departure time) and sort (price, earliest, duration, rating) results.
+    \item FR-C5: Customer shall be able to view provider details (profile, rating, past reviews).
+    \item FR-C6: Customer shall be able to see real-time seat/slot availability.
+\end{itemize}
+
+\subsubsection{Booking \& Ticketing}
+\begin{itemize}
+    \item FR-C7: Customer shall be able to book multiple passengers in one transaction.
+    \item FR-C8: Customer shall be able to apply discounts, loyalty points, or promotions.
+    \item FR-C9: Customer shall be able to confirm and pay securely (cards, UPI, wallets, net banking).
+    \item FR-C10: Customer shall receive digital tickets/confirmations (SMS, email, in-app).
+    \item FR-C11: Customer shall be able to view, download, and save booking history.
+\end{itemize}
+
+\subsubsection{Post-Booking Management}
+\begin{itemize}
+    \item FR-C12: Customer shall be able to cancel, reschedule (if allowed), and track refund status.
+    \item FR-C13: Customer shall be able to view upcoming and past bookings.
+    \item FR-C14: Customer shall be able to view transaction/payment history.
+\end{itemize}
+
+\subsubsection{Ratings \& Feedback}
+\begin{itemize}
+    \item FR-C15: Customer shall be able to rate and review providers.
+    \item FR-C16: Customer shall be able to report issues (safety, poor service, fraud).
+    \item FR-C17: Customer shall be able to flag suspicious/fake providers.
+\end{itemize}
+
+\subsubsection{Notifications}
+\begin{itemize}
+    \item FR-C18: Customer shall receive booking confirmations, real-time updates (delays, cancellations), promotions, refund updates, and loyalty reminders.
+\end{itemize}
+
+\subsubsection{AI/ML Features}
+\begin{itemize}
+    \item FR-C19: Customer shall be able to use AI trip planning via chatbot (multi-leg journeys combining train, cab, flight, etc.).
+    \item FR-C20: Customer shall receive personalized recommendations and dynamic pricing suggestions.
+\end{itemize}
+
+\subsubsection{Loyalty \& Referral}
+\begin{itemize}
+    \item FR-C21: Customer shall be enrolled in a loyalty program with cryptocurrency-based reward points.
+    \item FR-C22: Customer shall earn/redeem loyalty points for bookings at an admin-controlled conversion ratio.
+    \item FR-C23: Customer shall be able to participate in a referral program with a multi-level reward structure.
+\end{itemize}
+
+\subsubsection{Travel Guidance \& Tracking}
+\begin{itemize}
+    \item FR-C24: Customer shall be able to access platform-hosted travel blogs, guides, and FAQs (airports, cities, routes, safety tips).
+    \item FR-C25: Customer shall be able to track booked journeys in real-time via integrated APIs (FlightRadar, Indian Railways, bus GPS).
+    \item FR-C26: Customer shall receive automated travel tips, AI-generated support, and context-aware FAQs within the platform.
+    \item FR-C27: Customer shall be able to participate in community forums for discussions, queries, and peer-to-peer support.
+\end{itemize}
+
+\vspace{2pt}
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.8pt,arc=3pt,auto outer arc,
+                  left=4pt,right=4pt,top=2pt,bottom=2pt]  % padding controls
+\textbf{User Role : Travel Service Provider}
+\end{tcolorbox}
+
+\subsubsection{Authentication \& Profile}
+\begin{itemize}
+    \item FR-P1: Provider shall be able to sign up with company details (name, contact, license info).
+    \item FR-P2: Provider shall be able to log in securely and reset passwords via email/OTP.
+    \item FR-P3: Provider shall be able to manage company profile (CRUD operations).
+    \item FR-P4: Provider shall be able to delete/deactivate their account if discontinuing services.
+\end{itemize}
+
+\subsubsection{Service \& Route Management}
+\begin{itemize}
+    \item FR-P5: Provider shall be able to manage (CRUD) routes/services including:
+    \begin{itemize}
+        \item Source, destination, timings, and type (bus/train/flight).
+        \item Vehicle/transportation details (ID, seating capacity, amenities).
+        \item Seat layouts (economy, premium, sleeper).
+        \item Pricing (static and dynamic based on demand, time, offers).
+        \item Cancellation/rescheduling policies and penalties.
+        \item Blocking seats for internal use/maintenance.
+    \end{itemize}
+    \item FR-P6: Provider shall be able to suspend or resume specific services (maintenance, disruptions).
+\end{itemize}
+
+\subsubsection{Booking Management}
+\begin{itemize}
+    \item FR-P7: Provider shall be able to view all bookings for their services.
+    \item FR-P8: Provider shall be able to search/filter bookings by passenger name, date, route, or booking ID.
+    \item FR-P9: Provider shall be able to send notifications (delays, cancellations, updates).
+    \item FR-P10: Provider shall be able to reassign/cancel bookings in special cases.
+\end{itemize}
+
+\subsubsection{Financial Management}
+\begin{itemize}
+    \item FR-P11: Provider shall be able to view transaction history (payments received, refunds issued).
+    \item FR-P12: Monthly settlements shall be processed by the platform (payments collected from customers → settled with providers).
+\end{itemize}
+
+\subsubsection{Analytics \& Insights}
+\begin{itemize}
+    \item FR-P13: Provider shall have a dashboard showing:
+    \begin{itemize}
+        \item Bookings, revenue, occupancy trends.
+        \item Daily/weekly/monthly performance reports.
+        \item Least-performing routes/assets (last 7 days).
+        \item Demand forecasting (via ARIMA/SARIMA).
+        \item No-show prediction/overbooking suggestion (via Random Forest).
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Customer Interaction \& Feedback}
+\begin{itemize}
+    \item FR-P14: Provider shall be able to view customer reviews and ratings for their services.
+    \item FR-P15: Provider shall be able to respond to reviews publicly or flag inappropriate ones.
+\end{itemize}
+
+
+\vspace{2pt}
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.8pt,arc=3pt,auto outer arc,
+                  left=4pt,right=4pt,top=2pt,bottom=2pt]  % padding controls
+\textbf{User Role : Admin}
+\end{tcolorbox}
+
+
+\subsubsection{Authentication \& Security}
+\begin{itemize}
+    \item FR-A1: Admin shall be able to log in securely with multi-factor authentication.
+    \item FR-A2: Admin shall be able to view logs of all login attempts by providers and customers.
+\end{itemize}
+
+\subsubsection{User \& Provider Management}
+\begin{itemize}
+    \item FR-A3: Admin shall be able to view, search, and filter all users (customers and providers).
+    \item FR-A4: Admin shall be able to create, update, suspend, block, or reset credentials for users.
+    \item FR-A5: Admin shall be able to verify provider details (licenses, documents) before onboarding.
+    \item FR-A6: Admin shall be able to approve or reject provider applications.
+\end{itemize}
+
+\subsubsection{Booking \& Data Access}
+\begin{itemize}
+    \item FR-A7: Admin shall have full entitlement access to the database and be able to run queries using a query runner on their dashboard.
+    \item FR-A8: Admin shall be able to search and filter bookings by customer, provider, date, or route.
+\end{itemize}
+
+\subsubsection{Financial Oversight}
+\begin{itemize}
+    \item FR-A9: Admin shall be able to view global transaction history.
+    \item FR-A10: Admin shall be able to generate financial reports (daily, weekly, monthly).
+\end{itemize}
+
+\subsubsection{Analytics \& Monitoring}
+\begin{itemize}
+    \item FR-A11: Admin shall be able to monitor system load (active users, bookings per minute).
+    \item FR-A12: Admin shall be able to analyze provider performance (on-time \%, cancellations, customer ratings).
+\end{itemize}
+
+\subsubsection{Communication}
+\begin{itemize}
+    \item FR-A13: Admin shall be able to send targeted notifications to customers or providers.
+\end{itemize}

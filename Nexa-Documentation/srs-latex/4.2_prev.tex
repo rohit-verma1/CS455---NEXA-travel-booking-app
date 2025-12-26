@@ -1,0 +1,81 @@
+\subsection{Functional Requirements}
+\subsubsection{Administrative access using usernames and passwords}
+\begin{itemize}
+    \item Usernames and passwords, known only to authorized users, authenticate their identity during login and grant them administrative access control for system management, including notifying users
+    \item Administrative access allows users to authenticate or deactivate user accounts, including resetting passwords and managing user access.
+    \item Administrative access allows users to update the inventory of available bicycles, add new bicycles to any operating hub, or remove bicycles that are no longer available
+    \item Administrative access allows users to adjust rental and membership prices and see users with negative balances
+\end{itemize}
+
+\subsubsection{Provision for users to create accouts}
+\begin{itemize}
+    \item The system allows users to create their profiles by providing essential information, password, and identification proof, IITK campus email for campus residents, and contact numbers for visitors
+    \item After successful authentication, the system allows users to update their personal information, reset their passwords, and avail of bicycle rental services
+    \item The system allows users to become members and avail of enhanced features by paying a monthly subscription fee
+\end{itemize}
+
+\subsubsection{Availability of an advance cycle}
+\begin{itemize}
+    \item Subscribed users gain exclusive access to a bicycle booking system, offering them early access to available bicycles
+    \item Subscribed users can define their booking window by providing necessary information such as date, time, and location for their advanced bookings, allowing them to reserve bicycles for a specified period in advance by paying a booking fee charged according to the time for which the bicycle was booked
+    \item The system offers flexibility in booking options, allowing subscribed users to modify or cancel their advanced bookings based on their changing plans
+\end{itemize}
+
+\subsubsection{Real-time visibility of available cycles at each hub}
+\begin{itemize}
+    \item The system allows the display of real-time data on available bicycles at each hub
+    \item Users can use the map interface integrated into the system, providing a visual representation of cycle hub locations and the number of available bicycles at each site
+    \item The system automatically refreshes after a specific time period for real-time updates to ensure that users have the latest information on cycle availability
+\end{itemize}
+
+\subsubsection{Visibility of hubs in proximity to any specified location}
+\begin{itemize}
+    \item The system allows users to input a specific address landmark or use their current location as the basis for finding nearby hubs
+    \item The system, if given permission, utilizes location-based services (LBS), like GPS or Wi-Fi positioning, to determine the current location of the user or any specified location
+\end{itemize}
+
+\subsubsection{Implementation of a scheduled maintenance system}
+\begin{itemize}
+    \item The system defines a regular maintenance schedule for each cycle, considering factors such as total usage time and customers' feedback
+    \item The system automatically sends maintenance reminders to maintenance service providers
+    \item The system provides customer support for handling emergency maintenance situations, such as breakdowns or safety-related issues
+\end{itemize}
+
+\subsubsection{Customer feedback mechanism}
+\begin{itemize}
+    \item The system allows users to report any issues with bicycles through the dedicated reporting system
+    \item The system defines a feedback form where users can report any issues and give feedback by including fields for specific details, such as cycle ID, Hub location, and/or a description of the problem
+    \item The system provides a rating system (5 stars rating system) for users to quickly express their overall satisfaction with the ride and the bicycle itself
+\end{itemize}
+
+\subsubsection{Access to detailed analytics}
+\begin{itemize}
+    \item The system provides a user-friendly dashboard where users can access and review detailed analytics of their ride history, including
+    \begin{itemize}[label={*}]
+        \item Total number of rides
+        \item Date and time of each ride
+        \item Source and destination of each ride
+        \item Duration of each ride
+        \item Cost charged for each ride
+        \item Average ride duration
+    \end{itemize}
+    \item The system provides a dashboard where users can access and review detailed analytics of wallet activities of users, including
+    \begin{itemize}[label={*}]
+        \item Subscription charges (if any)
+        \item Current balance
+        \item Transaction history
+        \item Payment methods used
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Implementation of a notification system}
+\begin{itemize}
+    \item The system sends regular notifications to users to inform them about upcoming maintenance activities or system updates that might affect bike availability
+    \item The system sends reminders to users about upcoming subscription renewals
+\end{itemize}
+\newpage
+\subsection{Use Case Model}
+\begin{center}
+\hspace{-1.25cm}\includegraphics*[scale=0.3]{ucm.png}
+
+\end{center}

@@ -1,0 +1,58 @@
+--My user models and views, and services models and views are done for my app.
+Now I need to redesign my views and logic for bookings and payments that will complete my services and stuff.
+As per the SRS, define my payments and booking apps that enable everything I’ve mentioned as my features.
+I want individual search APIs for flights, buses, and trains.
+
+--I was hoping to integrate search inside the bookings app — like under bookings/search
+
+--I want normal 3 APIs for searching each mode and one for an AI multimodal search.
+Also, give me the complete bookings normal logic and payments — models, views, and serializer files.
+
+--Where are my normal search APIs?
+Also, they should be completely integrated with payments.
+
+--In my search though, I want to search by class too.
+I’ve already provided class details in my service models.
+I want details of the relevant class only to be sent to the frontend.
+
+--Produce ready-to-drop, full-file versions for:
+payments/views.py, payments/serializers.py, payments/urls.py, and the management command (so I can just copy and paste them).
+
+--I have uploaded both bookings and services — fix bookings now.
+I have individual service models for all modes.
+
+If it’s too much trouble, then write bookings for each mode individually, and also make models for booking each mode individually.
+
+--Now, as per my SRS and SDD, using my existing tables, make me the analytics application.
+
+One set of APIs should be for the provider dashboard, and another for the ratings and reviews for customers.
+
+For buses and trains, provider-based reviews are needed.
+For trains, reviews should also work by train number.
+
+Add all other provider dashboard analytics — such as total income, average occupancy, total bookings, and whatever else is important.
+
+Give me a Good Markdown code explaining the Agentic AI app and the functionalities in my Django Backend 
+
+Give me the Readme for the Bookings App in my Django Backend and Give me markdown code so that I can copy
+
+Give me the markdown code for the payments schema in the Django Backend of Ticket Booking Platform 
+
+Give me the markdown code without canvas for the Services management schema in the Django Backend
+
+Give me a readme for the User Management APP in my Django Backend. Give me readme code in canvas
+
+This is the Structure of my django repository repository . I want to first check that the db is connecting properly and I have an API view please test it
+
+I am building a Ticket Booking Platform using Django in the backend, I have a user model for authentication but now I want to add 3 models customers, Service Providers and Admin and all the fields are to be optional. I am providing you ui for the customers build a backend django app for User Management. The Customer can Add Co travellers to his profile and the Provider can add vehicles to his profile vehicle can be bus or train or flight. make sure that the contents are exhaustive and compulsory only if it is truly compulsory. Use the user model class User(AbstractBaseUser): USER_TYPES = ( ('customer', 'Customer'), ('provider', 'Service Provider'), ('admin', 'Admin'), ) username = models.CharField(max_length=50, unique=True) email = models.EmailField(unique=True) phone_number = models.CharField(max_length=15, blank=True) user_type = models.CharField(max_length=20, choices=USER_TYPES, default='customer') is_active = models.BooleanField(default=True) is_verified = models.BooleanField(default=False) created_at = models.DateTimeField(auto_now_add=True) updated_at = models.DateTimeField(auto_now=True) USERNAME_FIELD = 'email' REQUIRED_FIELDS = ['username'] objects = UserManager() def __str__(self): return f"{self.username} ({self.user_type})"
+
+how to host django backend on some service for free 
+
+This is the db structure for auth schema -4 tables (otp, pas , session, users) and User management schema. Give me django api for registering new users and managing the authentication.
+
+I have a Postgre Db I want to have all the info of DB the schemas, tables , and Datatypes for an llm prompt give command
+
+I am using vercel to host an github app I want to keep backed in django and in another folder that doesn't have next app
+
+how will my DBMS look like for these, i need help with arranging table and schemas, right now i just need overview of all these tables and DBs for my SRS. they hsould be logically named
+

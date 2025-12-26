@@ -1,0 +1,2991 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /agenticai/query/:
+    post:
+      operationId: agenticai_query_create
+      description: Accepts a natural language query and returns booking options by
+        executing a plan.
+      summary: Submit a Natural Language Query to the AI Agent
+      tags:
+      - agenticai
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentQuery'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AgentQuery'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AgentQuery'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentQuery'
+          description: ''
+  /auth/active-sessions/:
+    post:
+      operationId: auth_active_sessions_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/change-password/:
+    post:
+      operationId: auth_change_password_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/check-email/:
+    post:
+      operationId: auth_check_email_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/check-username/:
+    post:
+      operationId: auth_check_username_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/delete-session/:
+    post:
+      operationId: auth_delete_session_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/forgot-password/:
+    post:
+      operationId: auth_forgot_password_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/github-login/:
+    post:
+      operationId: auth_github_login_create
+      description: Exchange GitHub code for access token and log in / create user.
+      tags:
+      - auth
+      responses:
+        '200':
+          description: No response body
+  /auth/google-login/:
+    post:
+      operationId: auth_google_login_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/login/:
+    post:
+      operationId: auth_login_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/logout/:
+    post:
+      operationId: auth_logout_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/logout-all/:
+    post:
+      operationId: auth_logout_all_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/profile/:
+    post:
+      operationId: auth_profile_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/register/:
+    post:
+      operationId: auth_register_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/resend-otp/:
+    post:
+      operationId: auth_resend_otp_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/reset-password/:
+    post:
+      operationId: auth_reset_password_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/update-profile/:
+    post:
+      operationId: auth_update_profile_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/verify-otp/:
+    post:
+      operationId: auth_verify_otp_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/verify-token/:
+    post:
+      operationId: auth_verify_token_create
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /bookings/bookings/:
+    get:
+      operationId: bookings_bookings_list
+      description: |-
+        Booking endpoints:
+        - create: lock seats and create booking (payment pending)
+        - list/retrieve: customer's bookings
+        - cancel: cancel booking -> create Refund (pending)
+        - ticket: retrieve ticket if issued
+      tags:
+      - bookings
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+          description: ''
+    post:
+      operationId: bookings_bookings_create
+      description: |-
+        Create booking:
+        - lock seats from the pre-generated seat table (SeatModel)
+        - create Booking + BookingPassenger rows
+        - update service.booked_seats
+        - return serialized booking + assigned seats (booking is PENDING payment)
+      tags:
+      - bookings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Booking'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /bookings/bookings/{booking_id}/:
+    get:
+      operationId: bookings_bookings_retrieve
+      description: |-
+        Booking endpoints:
+        - create: lock seats and create booking (payment pending)
+        - list/retrieve: customer's bookings
+        - cancel: cancel booking -> create Refund (pending)
+        - ticket: retrieve ticket if issued
+      parameters:
+      - in: path
+        name: booking_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this booking.
+        required: true
+      tags:
+      - bookings
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+    put:
+      operationId: bookings_bookings_update
+      description: |-
+        Booking endpoints:
+        - create: lock seats and create booking (payment pending)
+        - list/retrieve: customer's bookings
+        - cancel: cancel booking -> create Refund (pending)
+        - ticket: retrieve ticket if issued
+      parameters:
+      - in: path
+        name: booking_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this booking.
+        required: true
+      tags:
+      - bookings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Booking'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+    patch:
+      operationId: bookings_bookings_partial_update
+      description: |-
+        Booking endpoints:
+        - create: lock seats and create booking (payment pending)
+        - list/retrieve: customer's bookings
+        - cancel: cancel booking -> create Refund (pending)
+        - ticket: retrieve ticket if issued
+      parameters:
+      - in: path
+        name: booking_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this booking.
+        required: true
+      tags:
+      - bookings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBooking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBooking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBooking'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+    delete:
+      operationId: bookings_bookings_destroy
+      description: |-
+        Booking endpoints:
+        - create: lock seats and create booking (payment pending)
+        - list/retrieve: customer's bookings
+        - cancel: cancel booking -> create Refund (pending)
+        - ticket: retrieve ticket if issued
+      parameters:
+      - in: path
+        name: booking_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this booking.
+        required: true
+      tags:
+      - bookings
+      responses:
+        '204':
+          description: No response body
+  /bookings/bookings/{booking_id}/cancel/:
+    post:
+      operationId: bookings_bookings_cancel_create
+      description: |-
+        Booking endpoints:
+        - create: lock seats and create booking (payment pending)
+        - list/retrieve: customer's bookings
+        - cancel: cancel booking -> create Refund (pending)
+        - ticket: retrieve ticket if issued
+      parameters:
+      - in: path
+        name: booking_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this booking.
+        required: true
+      tags:
+      - bookings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Booking'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /bookings/bookings/{booking_id}/ticket/:
+    get:
+      operationId: bookings_bookings_ticket_retrieve
+      description: |-
+        Booking endpoints:
+        - create: lock seats and create booking (payment pending)
+        - list/retrieve: customer's bookings
+        - cancel: cancel booking -> create Refund (pending)
+        - ticket: retrieve ticket if issued
+      parameters:
+      - in: path
+        name: booking_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this booking.
+        required: true
+      tags:
+      - bookings
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /bookings/search/buses/:
+    get:
+      operationId: bookings_search_buses_retrieve
+      tags:
+      - bookings
+      responses:
+        '200':
+          description: No response body
+  /bookings/search/flights/:
+    get:
+      operationId: bookings_search_flights_retrieve
+      tags:
+      - bookings
+      responses:
+        '200':
+          description: No response body
+  /bookings/search/trains/:
+    get:
+      operationId: bookings_search_trains_retrieve
+      tags:
+      - bookings
+      responses:
+        '200':
+          description: No response body
+  /payments/confirm/:
+    post:
+      operationId: payments_confirm_create
+      description: |-
+        Confirm payment for a booking_id.
+        Body: { "booking_id": "<uuid>", "method": "Card" }
+      tags:
+      - payments
+      responses:
+        '200':
+          description: No response body
+  /payments/refunds/my/:
+    get:
+      operationId: payments_refunds_my_retrieve
+      tags:
+      - payments
+      responses:
+        '200':
+          description: No response body
+  /payments/refunds/process/:
+    post:
+      operationId: payments_refunds_process_create
+      tags:
+      - payments
+      responses:
+        '200':
+          description: No response body
+  /payments/settlements/process/:
+    post:
+      operationId: payments_settlements_process_create
+      tags:
+      - payments
+      responses:
+        '200':
+          description: No response body
+  /payments/wallet/:
+    get:
+      operationId: payments_wallet_retrieve
+      tags:
+      - payments
+      responses:
+        '200':
+          description: No response body
+  /schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /services/bus-services/:
+    get:
+      operationId: services_bus_services_list
+      description: |-
+        🚍 API for managing Bus Services
+        Includes seat generation, live dynamic pricing, provider filters, and Swagger docs.
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusService'
+          description: ''
+    post:
+      operationId: services_bus_services_create
+      description: |-
+        🚍 API for managing Bus Services
+        Includes seat generation, live dynamic pricing, provider filters, and Swagger docs.
+      tags:
+      - services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusService'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BusService'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BusService'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusService'
+          description: ''
+  /services/bus-services/{service_id}/:
+    get:
+      operationId: services_bus_services_retrieve
+      description: |-
+        🚍 API for managing Bus Services
+        Includes seat generation, live dynamic pricing, provider filters, and Swagger docs.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this bus service.
+        required: true
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusService'
+          description: ''
+    put:
+      operationId: services_bus_services_update
+      description: |-
+        🚍 API for managing Bus Services
+        Includes seat generation, live dynamic pricing, provider filters, and Swagger docs.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this bus service.
+        required: true
+      tags:
+      - services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusService'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BusService'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BusService'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusService'
+          description: ''
+    patch:
+      operationId: services_bus_services_partial_update
+      description: |-
+        🚍 API for managing Bus Services
+        Includes seat generation, live dynamic pricing, provider filters, and Swagger docs.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this bus service.
+        required: true
+      tags:
+      - services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBusService'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBusService'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBusService'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusService'
+          description: ''
+    delete:
+      operationId: services_bus_services_destroy
+      description: |-
+        🚍 API for managing Bus Services
+        Includes seat generation, live dynamic pricing, provider filters, and Swagger docs.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this bus service.
+        required: true
+      tags:
+      - services
+      responses:
+        '204':
+          description: No response body
+  /services/bus-services/{service_id}/seats/:
+    get:
+      operationId: services_bus_services_seats_retrieve
+      description: |-
+        🚍 API for managing Bus Services
+        Includes seat generation, live dynamic pricing, provider filters, and Swagger docs.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this bus service.
+        required: true
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusService'
+          description: ''
+  /services/bus-services/provider/{provider_id}/:
+    get:
+      operationId: services_bus_services_provider_retrieve
+      description: |-
+        🚍 API for managing Bus Services
+        Includes seat generation, live dynamic pricing, provider filters, and Swagger docs.
+      parameters:
+      - in: path
+        name: provider_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusService'
+          description: ''
+  /services/flight-services/:
+    get:
+      operationId: services_flight_services_list
+      description: |-
+        ✈️ API for managing Flight Services.
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, live dynamic pricing, and provider-based filtering.
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightService'
+          description: ''
+    post:
+      operationId: services_flight_services_create
+      description: |-
+        ✈️ API for managing Flight Services.
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, live dynamic pricing, and provider-based filtering.
+      tags:
+      - services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightService'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightService'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightService'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightService'
+          description: ''
+  /services/flight-services/{service_id}/:
+    get:
+      operationId: services_flight_services_retrieve
+      description: |-
+        ✈️ API for managing Flight Services.
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, live dynamic pricing, and provider-based filtering.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this flight service.
+        required: true
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightService'
+          description: ''
+    put:
+      operationId: services_flight_services_update
+      description: |-
+        ✈️ API for managing Flight Services.
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, live dynamic pricing, and provider-based filtering.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this flight service.
+        required: true
+      tags:
+      - services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightService'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightService'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightService'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightService'
+          description: ''
+    patch:
+      operationId: services_flight_services_partial_update
+      description: |-
+        ✈️ API for managing Flight Services.
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, live dynamic pricing, and provider-based filtering.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this flight service.
+        required: true
+      tags:
+      - services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFlightService'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFlightService'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFlightService'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightService'
+          description: ''
+    delete:
+      operationId: services_flight_services_destroy
+      description: |-
+        ✈️ API for managing Flight Services.
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, live dynamic pricing, and provider-based filtering.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this flight service.
+        required: true
+      tags:
+      - services
+      responses:
+        '204':
+          description: No response body
+  /services/flight-services/{service_id}/seats/:
+    get:
+      operationId: services_flight_services_seats_retrieve
+      description: |-
+        ✈️ API for managing Flight Services.
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, live dynamic pricing, and provider-based filtering.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this flight service.
+        required: true
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightService'
+          description: ''
+  /services/flight-services/provider/{provider_id}/:
+    get:
+      operationId: services_flight_services_provider_retrieve
+      description: |-
+        ✈️ API for managing Flight Services.
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, live dynamic pricing, and provider-based filtering.
+      parameters:
+      - in: path
+        name: provider_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightService'
+          description: ''
+  /services/train-services/:
+    get:
+      operationId: services_train_services_list
+      description: |-
+        🚆 API for managing Train Services
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, dynamic pricing, and provider-based queries.
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrainService'
+          description: ''
+    post:
+      operationId: services_train_services_create
+      description: |-
+        🚆 API for managing Train Services
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, dynamic pricing, and provider-based queries.
+      tags:
+      - services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainService'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TrainService'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TrainService'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainService'
+          description: ''
+  /services/train-services/{service_id}/:
+    get:
+      operationId: services_train_services_retrieve
+      description: |-
+        🚆 API for managing Train Services
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, dynamic pricing, and provider-based queries.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this train service.
+        required: true
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainService'
+          description: ''
+    put:
+      operationId: services_train_services_update
+      description: |-
+        🚆 API for managing Train Services
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, dynamic pricing, and provider-based queries.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this train service.
+        required: true
+      tags:
+      - services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainService'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TrainService'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TrainService'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainService'
+          description: ''
+    patch:
+      operationId: services_train_services_partial_update
+      description: |-
+        🚆 API for managing Train Services
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, dynamic pricing, and provider-based queries.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this train service.
+        required: true
+      tags:
+      - services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTrainService'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTrainService'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTrainService'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainService'
+          description: ''
+    delete:
+      operationId: services_train_services_destroy
+      description: |-
+        🚆 API for managing Train Services
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, dynamic pricing, and provider-based queries.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this train service.
+        required: true
+      tags:
+      - services
+      responses:
+        '204':
+          description: No response body
+  /services/train-services/{service_id}/seats/:
+    get:
+      operationId: services_train_services_seats_retrieve
+      description: |-
+        🚆 API for managing Train Services
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, dynamic pricing, and provider-based queries.
+      parameters:
+      - in: path
+        name: service_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this train service.
+        required: true
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainService'
+          description: ''
+  /services/train-services/provider/{provider_id}/:
+    get:
+      operationId: services_train_services_provider_retrieve
+      description: |-
+        🚆 API for managing Train Services
+        Includes nested creation (Route, Vehicle, Policy),
+        automatic seat generation, dynamic pricing, and provider-based queries.
+      parameters:
+      - in: path
+        name: provider_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - services
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainService'
+          description: ''
+  /user_management/co-travellers/:
+    get:
+      operationId: user_management_co_travellers_list
+      description: Customer can manage their own CoTravellers.
+      tags:
+      - user_management
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CoTraveller'
+          description: ''
+    post:
+      operationId: user_management_co_travellers_create
+      description: Customer can manage their own CoTravellers.
+      tags:
+      - user_management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoTraveller'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CoTraveller'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CoTraveller'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoTraveller'
+          description: ''
+  /user_management/co-travellers/{id}/:
+    get:
+      operationId: user_management_co_travellers_retrieve
+      description: Customer can manage their own CoTravellers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoTraveller'
+          description: ''
+    put:
+      operationId: user_management_co_travellers_update
+      description: Customer can manage their own CoTravellers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoTraveller'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CoTraveller'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CoTraveller'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoTraveller'
+          description: ''
+    patch:
+      operationId: user_management_co_travellers_partial_update
+      description: Customer can manage their own CoTravellers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCoTraveller'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCoTraveller'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCoTraveller'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoTraveller'
+          description: ''
+    delete:
+      operationId: user_management_co_travellers_destroy
+      description: Customer can manage their own CoTravellers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      responses:
+        '204':
+          description: No response body
+  /user_management/customers/:
+    get:
+      operationId: user_management_customers_list
+      description: |-
+        - Customer can view/update their own profile.
+        - Admin can view/manage all customers.
+      tags:
+      - user_management
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+          description: ''
+    post:
+      operationId: user_management_customers_create
+      description: |-
+        - Customer can view/update their own profile.
+        - Admin can view/manage all customers.
+      tags:
+      - user_management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+  /user_management/customers/{id}/:
+    get:
+      operationId: user_management_customers_retrieve
+      description: |-
+        - Customer can view/update their own profile.
+        - Admin can view/manage all customers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+    put:
+      operationId: user_management_customers_update
+      description: |-
+        - Customer can view/update their own profile.
+        - Admin can view/manage all customers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+    patch:
+      operationId: user_management_customers_partial_update
+      description: |-
+        - Customer can view/update their own profile.
+        - Admin can view/manage all customers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomer'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+    delete:
+      operationId: user_management_customers_destroy
+      description: |-
+        - Customer can view/update their own profile.
+        - Admin can view/manage all customers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      responses:
+        '204':
+          description: No response body
+  /user_management/service-providers/:
+    get:
+      operationId: user_management_service_providers_list
+      description: |-
+        - Service Provider can view/update their own info.
+        - Admin can view/manage all service providers.
+      tags:
+      - user_management
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceProvider'
+          description: ''
+    post:
+      operationId: user_management_service_providers_create
+      description: |-
+        - Service Provider can view/update their own info.
+        - Admin can view/manage all service providers.
+      tags:
+      - user_management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ServiceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ServiceProvider'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceProvider'
+          description: ''
+  /user_management/service-providers/{id}/:
+    get:
+      operationId: user_management_service_providers_retrieve
+      description: |-
+        - Service Provider can view/update their own info.
+        - Admin can view/manage all service providers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceProvider'
+          description: ''
+    put:
+      operationId: user_management_service_providers_update
+      description: |-
+        - Service Provider can view/update their own info.
+        - Admin can view/manage all service providers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ServiceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ServiceProvider'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceProvider'
+          description: ''
+    patch:
+      operationId: user_management_service_providers_partial_update
+      description: |-
+        - Service Provider can view/update their own info.
+        - Admin can view/manage all service providers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedServiceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedServiceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedServiceProvider'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceProvider'
+          description: ''
+    delete:
+      operationId: user_management_service_providers_destroy
+      description: |-
+        - Service Provider can view/update their own info.
+        - Admin can view/manage all service providers.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - user_management
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    AgentQuery:
+      type: object
+      properties:
+        query:
+          type: string
+      required:
+      - query
+    BlankEnum:
+      enum:
+      - ''
+    Booking:
+      type: object
+      properties:
+        booking_id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer:
+          type: string
+          format: uuid
+          nullable: true
+        mode:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/ModeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        service_id:
+          type: string
+          format: uuid
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        status:
+          allOf:
+          - $ref: '#/components/schemas/BookingStatusEnum'
+          readOnly: true
+        payment_status:
+          allOf:
+          - $ref: '#/components/schemas/PaymentStatusEnum'
+          readOnly: true
+        booking_date:
+          type: string
+          format: date-time
+          readOnly: true
+        passengers:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingPassenger'
+          readOnly: true
+        ticket:
+          allOf:
+          - $ref: '#/components/schemas/Ticket'
+          readOnly: true
+        status_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingStatus'
+          readOnly: true
+      required:
+      - booking_date
+      - booking_id
+      - passengers
+      - payment_status
+      - service_id
+      - status
+      - status_logs
+      - ticket
+    BookingPassenger:
+      type: object
+      properties:
+        passenger_id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        age:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+        gender:
+          type: string
+          maxLength: 20
+        seat_no:
+          type: string
+          nullable: true
+          maxLength: 20
+        document_id:
+          type: string
+          nullable: true
+          maxLength: 100
+      required:
+      - name
+      - passenger_id
+    BookingStatus:
+      type: object
+      properties:
+        status_id:
+          type: string
+          format: uuid
+          readOnly: true
+        status:
+          type: string
+          maxLength: 50
+        timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        remarks:
+          type: string
+          nullable: true
+      required:
+      - status
+      - status_id
+      - timestamp
+    BookingStatusEnum:
+      enum:
+      - Pending
+      - Confirmed
+      - Cancelled
+      type: string
+      description: |-
+        * `Pending` - Pending
+        * `Confirmed` - Confirmed
+        * `Cancelled` - Cancelled
+    BusSeat:
+      type: object
+      properties:
+        seat_id:
+          type: string
+          format: uuid
+          readOnly: true
+        seat_number:
+          type: string
+          maxLength: 10
+        seat_type:
+          $ref: '#/components/schemas/BusSeatSeatTypeEnum'
+        is_booked:
+          type: boolean
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+      required:
+      - price
+      - seat_id
+      - seat_number
+      - seat_type
+    BusSeatSeatTypeEnum:
+      enum:
+      - Sleeper
+      - NonSleeper
+      type: string
+      description: |-
+        * `Sleeper` - Sleeper
+        * `NonSleeper` - NonSleeper
+    BusService:
+      type: object
+      properties:
+        service_id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_user_id:
+          type: string
+          format: uuid
+          readOnly: true
+        route:
+          $ref: '#/components/schemas/Route'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        policy:
+          $ref: '#/components/schemas/Policy'
+        departure_time:
+          type: string
+          format: date-time
+        arrival_time:
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/Status943Enum'
+        num_rows_sleeper:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_sleeper:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_rows_non_sleeper:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_non_sleeper:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        base_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        non_sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        dynamic_pricing_enabled:
+          type: boolean
+        dynamic_factor:
+          type: number
+          format: double
+        current_sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+          nullable: true
+        current_non_sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+          nullable: true
+        total_capacity:
+          type: integer
+          readOnly: true
+        booked_seats:
+          type: integer
+          readOnly: true
+        seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusSeat'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - arrival_time
+      - base_price
+      - booked_seats
+      - created_at
+      - current_non_sleeper_price
+      - current_sleeper_price
+      - departure_time
+      - policy
+      - provider_user_id
+      - route
+      - seats
+      - service_id
+      - total_capacity
+      - updated_at
+      - vehicle
+    ClassTypeEnum:
+      enum:
+      - Sleeper
+      - SecondAC
+      - ThirdAC
+      type: string
+      description: |-
+        * `Sleeper` - Sleeper
+        * `SecondAC` - Second AC
+        * `ThirdAC` - Third AC
+    CoTraveller:
+      type: object
+      properties:
+        traveller_id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer_id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer_name:
+          type: string
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        gender:
+          type: string
+          maxLength: 20
+        marital_status:
+          type: string
+          maxLength: 20
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone_number:
+          type: string
+          maxLength: 15
+        address:
+          type: string
+      required:
+      - customer_id
+      - customer_name
+      - first_name
+      - last_name
+      - traveller_id
+    Customer:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 28
+        last_name:
+          type: string
+          maxLength: 28
+        nationality:
+          type: string
+          maxLength: 100
+        gender:
+          type: string
+          maxLength: 20
+        marital_status:
+          type: string
+          maxLength: 20
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        secondary_email:
+          type: string
+          format: email
+          maxLength: 254
+        address:
+          type: string
+        preferences:
+          nullable: true
+        mobile_number:
+          type: string
+          maxLength: 15
+      required:
+      - email
+      - user
+      - username
+    FlightSeat:
+      type: object
+      properties:
+        seat_id:
+          type: string
+          format: uuid
+          readOnly: true
+        seat_number:
+          type: string
+          maxLength: 10
+        seat_class:
+          $ref: '#/components/schemas/SeatClassEnum'
+        is_booked:
+          type: boolean
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+      required:
+      - price
+      - seat_class
+      - seat_id
+      - seat_number
+    FlightService:
+      type: object
+      description: |-
+        ✅ Nested creation of Route, Vehicle, and Policy
+        ✅ Nested read of flight_seats
+        🚫 Dynamic pricing handled live in views (on GET)
+      properties:
+        service_id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_user_id:
+          type: string
+          format: uuid
+          readOnly: true
+        route:
+          $ref: '#/components/schemas/Route'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        policy:
+          $ref: '#/components/schemas/Policy'
+        flight_number:
+          type: string
+          maxLength: 20
+        airline_name:
+          type: string
+          maxLength: 100
+        aircraft_model:
+          type: string
+          maxLength: 100
+        num_rows_business:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_business:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_rows_premium:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_premium:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_rows_economy:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_economy:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        base_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        business_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        premium_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        economy_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        dynamic_pricing_enabled:
+          type: boolean
+        dynamic_factor:
+          type: number
+          format: double
+        departure_time:
+          type: string
+          format: date-time
+        arrival_time:
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/Status943Enum'
+        total_capacity:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        booked_seats:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        flight_seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSeat'
+          readOnly: true
+      required:
+      - airline_name
+      - arrival_time
+      - base_price
+      - created_at
+      - departure_time
+      - flight_number
+      - flight_seats
+      - policy
+      - provider_user_id
+      - route
+      - service_id
+      - updated_at
+      - vehicle
+    ModeEnum:
+      enum:
+      - Bus
+      - Train
+      - Flight
+      type: string
+      description: |-
+        * `Bus` - Bus
+        * `Train` - Train
+        * `Flight` - Flight
+    NullEnum:
+      enum:
+      - null
+    PatchedBooking:
+      type: object
+      properties:
+        booking_id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer:
+          type: string
+          format: uuid
+          nullable: true
+        mode:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/ModeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        service_id:
+          type: string
+          format: uuid
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        status:
+          allOf:
+          - $ref: '#/components/schemas/BookingStatusEnum'
+          readOnly: true
+        payment_status:
+          allOf:
+          - $ref: '#/components/schemas/PaymentStatusEnum'
+          readOnly: true
+        booking_date:
+          type: string
+          format: date-time
+          readOnly: true
+        passengers:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingPassenger'
+          readOnly: true
+        ticket:
+          allOf:
+          - $ref: '#/components/schemas/Ticket'
+          readOnly: true
+        status_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingStatus'
+          readOnly: true
+    PatchedBusService:
+      type: object
+      properties:
+        service_id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_user_id:
+          type: string
+          format: uuid
+          readOnly: true
+        route:
+          $ref: '#/components/schemas/Route'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        policy:
+          $ref: '#/components/schemas/Policy'
+        departure_time:
+          type: string
+          format: date-time
+        arrival_time:
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/Status943Enum'
+        num_rows_sleeper:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_sleeper:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_rows_non_sleeper:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_non_sleeper:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        base_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        non_sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        dynamic_pricing_enabled:
+          type: boolean
+        dynamic_factor:
+          type: number
+          format: double
+        current_sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+          nullable: true
+        current_non_sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+          nullable: true
+        total_capacity:
+          type: integer
+          readOnly: true
+        booked_seats:
+          type: integer
+          readOnly: true
+        seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusSeat'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedCoTraveller:
+      type: object
+      properties:
+        traveller_id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer_id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer_name:
+          type: string
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        gender:
+          type: string
+          maxLength: 20
+        marital_status:
+          type: string
+          maxLength: 20
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone_number:
+          type: string
+          maxLength: 15
+        address:
+          type: string
+    PatchedCustomer:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 28
+        last_name:
+          type: string
+          maxLength: 28
+        nationality:
+          type: string
+          maxLength: 100
+        gender:
+          type: string
+          maxLength: 20
+        marital_status:
+          type: string
+          maxLength: 20
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        secondary_email:
+          type: string
+          format: email
+          maxLength: 254
+        address:
+          type: string
+        preferences:
+          nullable: true
+        mobile_number:
+          type: string
+          maxLength: 15
+    PatchedFlightService:
+      type: object
+      description: |-
+        ✅ Nested creation of Route, Vehicle, and Policy
+        ✅ Nested read of flight_seats
+        🚫 Dynamic pricing handled live in views (on GET)
+      properties:
+        service_id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_user_id:
+          type: string
+          format: uuid
+          readOnly: true
+        route:
+          $ref: '#/components/schemas/Route'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        policy:
+          $ref: '#/components/schemas/Policy'
+        flight_number:
+          type: string
+          maxLength: 20
+        airline_name:
+          type: string
+          maxLength: 100
+        aircraft_model:
+          type: string
+          maxLength: 100
+        num_rows_business:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_business:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_rows_premium:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_premium:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_rows_economy:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        num_columns_economy:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        base_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        business_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        premium_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        economy_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        dynamic_pricing_enabled:
+          type: boolean
+        dynamic_factor:
+          type: number
+          format: double
+        departure_time:
+          type: string
+          format: date-time
+        arrival_time:
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/Status943Enum'
+        total_capacity:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        booked_seats:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        flight_seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSeat'
+          readOnly: true
+    PatchedServiceProvider:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        company_name:
+          type: string
+          maxLength: 100
+        license_info:
+          type: string
+          maxLength: 100
+        contact_number:
+          type: string
+          maxLength: 15
+        status:
+          allOf:
+          - $ref: '#/components/schemas/ServiceProviderStatusEnum'
+          readOnly: true
+        verified:
+          type: boolean
+          readOnly: true
+        verified_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+    PatchedTrainService:
+      type: object
+      description: |-
+        ✅ Nested creation of route, vehicle, and policy (like BusService)
+        ✅ Nested read of train_seats
+        🚫 No pricing logic here — handled in views
+      properties:
+        service_id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_user_id:
+          type: string
+          format: uuid
+          readOnly: true
+        route:
+          $ref: '#/components/schemas/Route'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        policy:
+          $ref: '#/components/schemas/Policy'
+        train_name:
+          type: string
+          maxLength: 100
+        train_number:
+          type: string
+          maxLength: 20
+        num_bogies:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        base_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        second_ac_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        third_ac_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        dynamic_pricing_enabled:
+          type: boolean
+        dynamic_factor:
+          type: number
+          format: double
+        departure_time:
+          type: string
+          format: date-time
+        arrival_time:
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/Status943Enum'
+        total_capacity:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        booked_seats:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        train_seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrainSeat'
+          readOnly: true
+    PaymentStatusEnum:
+      enum:
+      - Pending
+      - Paid
+      - Refunded
+      type: string
+      description: |-
+        * `Pending` - Pending
+        * `Paid` - Paid
+        * `Refunded` - Refunded
+    Policy:
+      type: object
+      properties:
+        policy_id:
+          type: string
+          format: uuid
+          readOnly: true
+        cancellation_window:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Hours before departure
+        cancellation_fee:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        reschedule_allowed:
+          type: boolean
+        reschedule_fee:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        no_show_penalty:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        terms_conditions:
+          type: string
+      required:
+      - cancellation_fee
+      - cancellation_window
+      - no_show_penalty
+      - policy_id
+      - reschedule_fee
+      - terms_conditions
+    Route:
+      type: object
+      properties:
+        route_id:
+          type: string
+          format: uuid
+          readOnly: true
+        source:
+          type: string
+          maxLength: 100
+        destination:
+          type: string
+          maxLength: 100
+        distance_km:
+          type: number
+          format: double
+        estimated_duration:
+          type: string
+        via_points: {}
+      required:
+      - destination
+      - distance_km
+      - estimated_duration
+      - route_id
+      - source
+    SeatClassEnum:
+      enum:
+      - Business
+      - PremiumEconomy
+      - Economy
+      type: string
+      description: |-
+        * `Business` - Business
+        * `PremiumEconomy` - Premium Economy
+        * `Economy` - Economy
+    ServiceProvider:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        company_name:
+          type: string
+          maxLength: 100
+        license_info:
+          type: string
+          maxLength: 100
+        contact_number:
+          type: string
+          maxLength: 15
+        status:
+          allOf:
+          - $ref: '#/components/schemas/ServiceProviderStatusEnum'
+          readOnly: true
+        verified:
+          type: boolean
+          readOnly: true
+        verified_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+      - email
+      - status
+      - user
+      - username
+      - verified
+      - verified_at
+    ServiceProviderStatusEnum:
+      enum:
+      - Pending
+      - Approved
+      - Rejected
+      type: string
+      description: |-
+        * `Pending` - Pending
+        * `Approved` - Approved
+        * `Rejected` - Rejected
+    Status943Enum:
+      enum:
+      - Scheduled
+      - Active
+      - Cancelled
+      type: string
+      description: |-
+        * `Scheduled` - Scheduled
+        * `Active` - Active
+        * `Cancelled` - Cancelled
+    Ticket:
+      type: object
+      properties:
+        ticket_id:
+          type: string
+          format: uuid
+          readOnly: true
+        ticket_no:
+          type: string
+          maxLength: 100
+        qr_code:
+          type: string
+          nullable: true
+        issued_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_valid:
+          type: boolean
+      required:
+      - issued_at
+      - ticket_id
+      - ticket_no
+    TrainSeat:
+      type: object
+      properties:
+        seat_id:
+          type: string
+          format: uuid
+          readOnly: true
+        bogie_number:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        seat_number:
+          type: string
+          maxLength: 10
+        seat_type:
+          $ref: '#/components/schemas/TrainSeatSeatTypeEnum'
+        class_type:
+          $ref: '#/components/schemas/ClassTypeEnum'
+        is_booked:
+          type: boolean
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+      required:
+      - bogie_number
+      - class_type
+      - price
+      - seat_id
+      - seat_number
+      - seat_type
+    TrainSeatSeatTypeEnum:
+      enum:
+      - Lower
+      - Middle
+      - Upper
+      - SideLower
+      - SideUpper
+      type: string
+      description: |-
+        * `Lower` - Lower
+        * `Middle` - Middle
+        * `Upper` - Upper
+        * `SideLower` - Side Lower
+        * `SideUpper` - Side Upper
+    TrainService:
+      type: object
+      description: |-
+        ✅ Nested creation of route, vehicle, and policy (like BusService)
+        ✅ Nested read of train_seats
+        🚫 No pricing logic here — handled in views
+      properties:
+        service_id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_user_id:
+          type: string
+          format: uuid
+          readOnly: true
+        route:
+          $ref: '#/components/schemas/Route'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        policy:
+          $ref: '#/components/schemas/Policy'
+        train_name:
+          type: string
+          maxLength: 100
+        train_number:
+          type: string
+          maxLength: 20
+        num_bogies:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        base_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        sleeper_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        second_ac_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        third_ac_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        dynamic_pricing_enabled:
+          type: boolean
+        dynamic_factor:
+          type: number
+          format: double
+        departure_time:
+          type: string
+          format: date-time
+        arrival_time:
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/Status943Enum'
+        total_capacity:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        booked_seats:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        train_seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrainSeat'
+          readOnly: true
+      required:
+      - arrival_time
+      - base_price
+      - created_at
+      - departure_time
+      - num_bogies
+      - policy
+      - provider_user_id
+      - route
+      - service_id
+      - train_name
+      - train_number
+      - train_seats
+      - updated_at
+      - vehicle
+    Vehicle:
+      type: object
+      properties:
+        vehicle_id:
+          type: string
+          format: uuid
+          readOnly: true
+        registration_no:
+          type: string
+          maxLength: 50
+        model:
+          type: string
+          maxLength: 100
+        capacity:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        amenities: {}
+        status:
+          $ref: '#/components/schemas/VehicleStatusEnum'
+      required:
+      - capacity
+      - model
+      - registration_no
+      - status
+      - vehicle_id
+    VehicleStatusEnum:
+      enum:
+      - Active
+      - Maintenance
+      type: string
+      description: |-
+        * `Active` - Active
+        * `Maintenance` - Maintenance
